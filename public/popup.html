@@ -1,18 +1,26 @@
-<html>
-  <head>
+<html ng-app="popupApp">
+  <meta charset="utf-8">
+
+  <head ng-app="popupApp">
     <link rel="stylesheet" href="lib/styles.css" type="text/css" media="all">
+    <!-- jQuery -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- Angular -->
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-route.js"></script>
+
+    <!-- main JS -->
     <script type="text/javascript" src="popup.js"></script>
   </head>
-  <body>
+  <body ng-controller="popupController">
     <ul>
-    <form>
+    <form id="quoteableForm">
       <li><input id="quoteTitle" placeholder="title"></li>
       <li><input id="quoteBody" placeholder="quote goes here"></li>
       <li><input id="quoteAuthor" placeholder="Fred Zirdung"></li>
       <li><input id="quoteTags" placeholder="some tags"></li>
       <li id="quoteDate">February 10, 2014</li>
-      <input type="submit" value="submit">
+      <button id="quoteSubmit" ng-click="saveQuote()">submit</button>
     </form>  
     </ul>
   </body>
