@@ -2,6 +2,7 @@
   <meta charset="utf-8">
 
   <head ng-app="popupApp">
+    <link rel="stylesheet" href="lib/fonts/webfontkit-20140211-025148/stylesheet.css" type="text/css" media="all">
     <link rel="stylesheet" href="lib/styles.css" type="text/css" media="all">
     <!-- jQuery -->
     <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
@@ -9,18 +10,16 @@
     <script type="text/javascript" src="lib/angular.js"></script>
     <script type="text/javascript" src="lib/angular-route.js"></script>
     <!-- main JS -->
-    <script type="text/javascript" src="background.js"></script>
-    <script type="text/javascript" src="popup.js"></script>
   </head>
   <body ng-controller="popupController">
     <ul>
 
     <form id="quoteableForm" ng-submit="saveQuote()">
+      <li><textarea id="quoteBody" placeholder="quote goes here" name="quoteBody"  maxlength="500"></textarea></li>
+      <li><input id="quoteAuthor" placeholder="Author" name="quoteAuthor"></li>
       <li><input id="quoteTitle" placeholder="title" name="quoteTitle"></li>
-      <li><input id="quoteBody" placeholder="quote goes here" name="quoteBody"></li>
-      <li><input id="quoteAuthor" placeholder="Fred Zirdung" name="quoteAuthor"></li>
-      <li><input id="quoteTags" placeholder="some tags" name="quoteTags"></li>
-      <li id="quoteDate"></li>
+      <li><input id="quoteTags" placeholder="Save a quote for later" name="quoteTags"></li>
+      <li id="quoteDate" style="display:none;"></li>
       <input type='submit' id="quoteSubmit">
        <!-- ng-click="saveQuote().then(sendQuote())" -->
     </form>  
@@ -49,6 +48,8 @@
         // });
       // }); -->
 
-    {{quoteObject}}
+    <li id="reference">{{quoteObject}}</li>
+    <script type="text/javascript" src="background.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
   </body>
 </html>
