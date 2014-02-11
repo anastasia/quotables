@@ -30,6 +30,7 @@ var app = angular.module('popupApp', ['ngRoute'])
       data: data,
     });
   }
+
 // save quote
   $scope.saveQuote = function(){
     $scope.quoteObject.title = $('#quoteTitle').val();
@@ -37,8 +38,9 @@ var app = angular.module('popupApp', ['ngRoute'])
     $scope.quoteObject.author = $('#quoteAuthor').val();
     $scope.quoteObject.tags = $('#quoteTags').val(); // split, make into an array
     $scope.quoteObject.date = new Date();
+    // URL HERE
+    console.log($scope.quoteObject);
     $scope.sendQuote($scope.quoteObject);
-    console.log("sending quote");
   };
 
 });

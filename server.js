@@ -25,7 +25,6 @@ var Quotable = mongoose.model('Quotable', {
   } 
 });
 
-
 // GET
 app.get('/', function(req, res){
   res.send(200)
@@ -35,6 +34,9 @@ app.get('/quotes', function(req, res){
  res.send(200, 'hello')
 });
 
+app.get('/quotableSite/', function(req, res){
+  res.sendfile('./public/popup.html')
+});
 // POST /////////////////// create quotes
 
 app.post('/quotes', function(req, res){
@@ -54,7 +56,12 @@ app.post('/quotes', function(req, res){
   res.send(200, "sent, maybe");
 });
  
+app.get('*', function(req, res){
+  // res.sendfile('./public/popup.html')
+})
 
+app.listen(8080);
+console.log("App listening, port 8080");
 
 // DELETE
 // app.delete('', function(req, res){
@@ -74,10 +81,3 @@ app.post('/quotes', function(req, res){
 //   });
 // });
 
-
-app.get('*', function(req, res){
-  res.sendfile('./public/popup.html')
-})
-
-app.listen(8080);
-console.log("App listening, port 8080");

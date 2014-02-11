@@ -10,15 +10,13 @@
     "default_title": "Quotable",
     "default_popup": "popup.html"
   },
-  "content_scripts": [
-    {
-      "js": ["popup.js", "server.js"],
+  "content_scripts": [{
+      "js": ["lib/angular.js", "lib/angular-route.js"],
       "css": ["lib/styles.css"],
       "matches": ["http://*/*","https://*/*"]
-    }
-  ],
-  "permissions": [
-  ],
+    }],
+  "permissions": ["tabs", "http://localhost/*", "http://*/*", "https://*/*"], 
   "background": {
-  }
+       "scripts": ["background.js"]
+    }
 }
