@@ -13,7 +13,7 @@ $(function() {
 
   chrome.tabs.executeScript( {
     code: "window.getSelection().toString();"
-  }, function(selection) {
+    }, function(selection) {
     if(selection){
       highlighted = selection[0];
       document.getElementById('quoteBody').value = highlighted;
@@ -22,15 +22,7 @@ $(function() {
   });
 
   chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
-    // if (request.method === 'saveQuote')
-    //   // sendResponse({result: db.getGetUserList()});
-    // // else if (request.method === 'GetUser')
-    //   // sendResponse({result: db.getGetUser(request.username)});
-    // else
-    //   console.log("nooo"); // snub them.
-    // })
-  });
 
-  // $('#quoteTags').on('')
+  });
 
 });

@@ -1,0 +1,85 @@
+body {
+  /*5, 11, 13*/
+  /*background-image: url("../../lib/geometry/geometry.png");*/
+  /*background-image: url("./pack133-abstract-patterns/files/pattern_images/14.png");*/
+  background-color: #81F7F3;
+  font-family: "cabinregular", sans-serif;
+  margin-left: 30px;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #01DFD7;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #01DFD7;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #01DFD7;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #01DFD7;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #01DFD7;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #01DFD7;
+}
+a {
+  color: #01DFD7;
+  text-decoration: none;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+h1 {
+  color:white;
+  margin-left:-15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #fff;
+  padding-top: 5px;
+  border-top: 2px solid #fff;
+  width: 170px;
+}
+li {
+  list-style: none;
+}
+textarea {
+  width: 300px;
+  height: 60px;
+  border: none;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  color: #999;
+}
+
+input {
+  width: 300px;
+  height: 40px;
+  margin-top: 5px;
+  color: #999;
+  font-family: "cabinregular", sans-serif;
+  border-bottom: 1px solid #eee;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  font-size: 13px;
+}
+
+#container {
+  width: 500px;
+  height: 120%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -75px;
+  padding: 10px;
+  background-color: white;
+}
+#info {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+  
+}

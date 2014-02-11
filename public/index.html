@@ -1,3 +1,33 @@
+<html ng-app="popupApp">
+<meta charset="utf-8">
 <head>
-  <link rel="stylesheet" type="text/css" href="./lib/styles.css">
+
+  <link rel="stylesheet" href="lib/fonts/webfontkit-20140211-025148/stylesheet.css" type="text/css" media="all">
+  <link rel="stylesheet" type="text/css" href="lib/quotableStyles.css">
+  <!-- jQuery -->
+  <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
+  
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <!-- Angular -->
+  <script type="text/javascript" src="lib/angular.js"></script>
+  <script type="text/javascript" src="lib/angular-route.js"></script>
+
+  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+  <!-- main JS -->
+  <script type="text/javascript" src="popup.js"></script>
 </head>
+<body ng-controller="QuoteController">
+  <h1>QUOTABLE</h1>
+    <div id="container">
+      <li class="quote" ng-repeat="quote in quotes | filter:search">
+        <div id="info">
+          <div id="quoteBody">{{ quote.body }}</div>
+          <div id="quoteTitle">{{ quote.title }}</div>
+          <div id="quoteBody">{{ quote.author }}</div>
+          <div id="createdAt">{{ quote.created_at }}</div>
+          <a href="{{ quote.url }}">{{ quote.url }}</a>
+        </div>
+      </li>
+    </div>
+</body>
+</html>
