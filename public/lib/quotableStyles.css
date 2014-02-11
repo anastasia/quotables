@@ -94,8 +94,35 @@ input {
   color: #555;
   overflow: scroll;
 }
+
 #info {
+  padding-top:5px;
   padding-bottom: 10px;
   border-bottom: 2px solid #eee;
-  
 }
+
+#quoteBody {
+  font-family: "cabinregular", sans-serif;
+  padding-bottom: 4px;
+}
+#quoteTitle {
+  font-family: "cabinitalic", sans-serif;
+  color: #999;
+  font-size: 13px;
+}
+#quoteAuthor {
+    font-size: 13px;
+}
+#quoteUrl {
+  text-align:right;
+  font-size: 13px;
+  padding-right:5px;
+}
+#quoteTags {
+  font-size: 13px;
+  color: #999;
+}
+a:hover {
+  color:blue;
+}
+

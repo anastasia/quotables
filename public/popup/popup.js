@@ -41,6 +41,7 @@ var app = angular.module('popupApp', ['ngRoute', 'firebase']);
       $scope.quoteObject.tags = tagArr; // split, make into an array
       $scope.quoteObject.date = new Date();
       $scope.quoteObject.url = url;
+      $scope.quoteObject.urlOrigin = urlOrigin;
       // URL HERE
       console.log("saving quote");
       $scope.sendQuote($scope.quoteObject);

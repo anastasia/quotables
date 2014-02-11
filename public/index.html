@@ -17,16 +17,17 @@
 <body  ng-controller="QuoteController">
   <div id="leftColumn">
     <h1>QUOTABLE</h1>
-    <input id="search" placeholder="search" ng-model="searchQuote">
+    <input id="search" placeholder="search" type="search" ng-model="search" >
   </div>
     <div id="container">
-      <li class="quote" ng-repeat="quote in allQuotes | filter:searchQuote">
+      <li class="quote" ng-repeat='quote in allQuotes | filter:search' >
         <div id="info">
           <div id="quoteBody">{{ quote.body }}</div>
+          <div id="quoteAuthor">{{ quote.author }}</div>
           <div id="quoteTitle">{{ quote.title }}</div>
-          <div id="quoteBody">{{ quote.author }}</div>
-          <div id="createdAt">{{ quote.created_at }}</div>
-          <a href="{{ quote.url }}">{{ quote.url }}</a>
+          <div id="quoteDate">{{ }}</div>
+          <span><a href="{{ quote.url }}" id="quoteUrl" target="blank">{{ quote.urlOrigin }}  </a></span>&#183;
+          <span id="quoteTags" ng-repeat="tag in quote.tags"><a href="#" id="singleTag"> #{{tag}} </a></span>
         </div>
       </li>
     </div>
