@@ -33,11 +33,12 @@ var app = angular.module('popupApp', ['ngRoute'])
 
 // save quote
   $scope.saveQuote = function(){
-    $scope.quoteObject.title = $('#quoteTitle').val();
-    $scope.quoteObject.body = $('#quoteBody').val();
+    $scope.quoteObject.title = title;
+    $scope.quoteObject.body = highlighted;
     $scope.quoteObject.author = $('#quoteAuthor').val();
     $scope.quoteObject.tags = $('#quoteTags').val(); // split, make into an array
     $scope.quoteObject.date = new Date();
+    $scope.quoteObject.url = url;
     // URL HERE
     console.log($scope.quoteObject);
     $scope.sendQuote($scope.quoteObject);

@@ -1,31 +1,33 @@
-var highlighted;
+var highlighted, url, title;
 $(function() {
   chrome.tabs.getSelected(null, function(tab) {
-    var url = (tab.url);
-    var title = (tab.title)
+    url = tab.url;
+    title = tab.title;
+    d = new Date();
+    // date = d.getDate() + " " + d.getMonth() + 1 + " " + d.getFullYear() + ''; // format later
+    document.getElementById('quoteTitle').value = title;
+    document.getElementById('quoteDate').innerHTML = d;
+    console.log(d)
     // var text = tab.getSelection().baseNode
-    console.log(tab)
   })
   chrome.tabs.executeScript( {
     code: "window.getSelection().toString();"
   }, function(selection) {
     if(selection){
       highlighted = selection[0];
+      document.getElementById('quoteBody').value = highlighted;
       console.log(highlighted)
     }
   });
-   // $("#form").submit(function() {
-   //    console.log("SUBMITTING")
-   //  });
 
-  // chrome.extension.onRequest.addListener(function(request, sender, sendResponse{
-  //   if (request.method == 'GetUserList')
-  //     sendResponse({result: db.getGetUserList()});
-  //   else if (request.method == 'GetUser')
-  //     sendResponse({result: db.getGetUser(request.username)});
-  //   else
-  //     sendResponse({}); // snub them.
-  //   })
+  chrome.extension.onRequest.addListener(function(request, sender, sendResponse{
+    if (request.method === 'saveQuote')
+      sendResponse({result: db.getGetUserList()});
+    // else if (request.method === 'GetUser')
+      // sendResponse({result: db.getGetUser(request.username)});
+    else
+      sendResponse({}); // snub them.
+    })
 
   // });
 });
