@@ -14,14 +14,16 @@
   </head>
   <body ng-controller="popupController">
     <ul>
-    <form id="quoteableForm">
-      <li><input id="quoteTitle" placeholder="title"></li>
-      <li><input id="quoteBody" placeholder="quote goes here"></li>
-      <li><input id="quoteAuthor" placeholder="Fred Zirdung"></li>
-      <li><input id="quoteTags" placeholder="some tags"></li>
+    <form id="quoteableForm"  action='/notes/create'>
+      <li><input id="quoteTitle" placeholder="title" name="quoteTitle"></li>
+      <li><input id="quoteBody" placeholder="quote goes here" name="quoteBody"></li>
+      <li><input id="quoteAuthor" placeholder="Fred Zirdung" name="quoteAuthor"></li>
+      <li><input id="quoteTags" placeholder="some tags" name="quoteTags"></li>
       <li id="quoteDate">February 10, 2014</li>
-      <button id="quoteSubmit" ng-click="saveQuote()">submit</button>
+      <button id="quoteSubmit" ng-click="saveQuote().then(sendQuote())">submit</button>
+       <!-- ng-click="saveQuote().then(sendQuote())" -->
     </form>  
     </ul>
+    {{quoteObject}}
   </body>
 </html>

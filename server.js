@@ -3,7 +3,8 @@ var app = express();
 var mongoose = require('mongoose');
 
 // using https://modulus.io/ database
-mongoose.connect('mongodb://<fred>:<fred>@novus.modulusmongo.net:27017/dOs5ymym') // write localhost, 
+// mongoose.connect('mongodb://localhost/quotes')
+mongoose.connect('mongodb://fred:fred@novus.modulusmongo.net:27017/dOs5ymym') // write localhost, 
 
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
@@ -12,18 +13,14 @@ app.configure(function(){
   app.use(express.methodOverride()); // simulate DELETE and PUT
 });
 
+
 // create mongoose model to perform all VERBS on 
 var Quotable = mongoose.model('Quotable', {
   text : String // just want the text for each To do — mongo automatically generates _id for each
 });
 
-// MONGO URI
-// mongodb://<user>:<pass>@novus.modulusmongo.net:27017/dOs5ymym
-// MONGO CONSOLE
-// mongo novus.modulusmongo.net:27017/dOs5ymym -u <user> -p <pass>
-
 // GET
-app.get('/api/quotes/', function(req, res){
+app.get('/quotes/', function(req, res){
   Quotable.find(function(err, quotes){
     if (err){
       res.send(err)
@@ -33,10 +30,20 @@ app.get('/api/quotes/', function(req, res){
 });
 
 // POST
-app.post('/', function(req, res){
+
+app.post('/quotes/', function(req, res){
+  
+  // var quoteObject = {
+  //   'title' : req.body.quoteTitle,
+  //   'body' : req.body.quoteBody,
+  //   'author' : req.body.quoteAuthor,
+  //   'tags' : req.body.quoteTags,
+  //   'date' : 'date'
+  // };
+
   Quotable.create({
     text : req.body.text,
-    done : false ////////////////////////////////////////// what's this?
+    done : false 
   }, function(err, todo){
     if(err){
       res.send(err);

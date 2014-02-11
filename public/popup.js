@@ -9,14 +9,10 @@ var app = angular.module('popupApp', ['ngRoute'])
       })
     })
   .controller('popupController', function ($scope, $http){
-  $http.get('/')
-    .success(function(data){
-      console.log(data);
+  $http({
+      method:'GET',
+      url: '/',
     })
-    .error(function(data){
-      console.log('Error: ' + data);
-    });
-// quote object
   $scope.quoteObject = {
     'title' : 'title',
     'body' : 'body',
@@ -24,15 +20,24 @@ var app = angular.module('popupApp', ['ngRoute'])
     'tags' : [],
     'date' : 'date'
   };
-
+// first save quote, then post
+  $scope.sendQuote = function(){
+     return $http({
+      method: 'POST',
+      url: '/quotes',
+      data: $scope.quoteObject
+    });
+     console.log("sent!")
+  }
 // save quote
   $scope.saveQuote = function(){
-    quoteObject.title = $('#quoteTitle').val();
-    quoteObject.body = $('#quoteBody').val();
-    quoteObject.author = $('#quoteAuthor').val();
-    quoteObject.tags = $('#quoteTags').val(); // split, make into an array
-    quoteObject.date = new Date();
-    console.log(quoteObject);
+    $scope.quoteObject.title = $('#quoteTitle').val();
+    $scope.quoteObject.body = $('#quoteBody').val();
+    $scope.quoteObject.author = $('#quoteAuthor').val();
+    $scope.quoteObject.tags = $('#quoteTags').val(); // split, make into an array
+    $scope.quoteObject.date = new Date();
+
+    console.log($scope.quoteObject);
   };
 
 });
@@ -68,3 +73,9 @@ function indexController ($scope, $http){
 //       }
 //   }); 
 // }
+  // $http({
+  //   method:'POST',
+  //   url: '', // send along data
+  //   data: $scope.quoteObject
+  // })
+// quote object
