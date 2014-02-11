@@ -10,8 +10,15 @@
     "default_title": "Quotable",
     "default_popup": "popup.html"
   },
-  "homepage_url": "popup.html",
+  "content_scripts": [
+    {
+      "js": ["popup.js", "server.js"],
+      "css": ["lib/styles.css"],
+      "matches": ["http://*/*","https://*/*"]
+    }
+  ],
   "permissions": [
-    // "https://secure.flickr.com/"
-  ]
+  ],
+  "background": {
+  }
 }

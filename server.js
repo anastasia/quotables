@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 // using https://modulus.io/ database
 // mongoose.connect('mongodb://localhost/quotes')
-mongoose.connect('mongodb://fred:fred@novus.modulusmongo.net:27017/dOs5ymym') // write localhost, 
+mongoose.connect('mongodb://localhost/app') // write localhost, 
 
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
@@ -29,40 +29,32 @@ var Quotable = mongoose.model('Quotable', {
 // GET
 app.get('/', function(req, res){
   res.send(200)
-  // Quotable.find(function(err, quotes){
-  //   if (err){
-  //     res.send(err)
-  //   }
-  //   res.json(quotes);
-  // });
 });
 
 app.get('/quotes', function(req, res){
- console.log()
  res.send(200, 'hello')
 });
-// POST
+
+// POST /////////////////// create quotes
 
 app.post('/quotes', function(req, res){
-  console.log(req.body.text)
-  res.send(200);
+  console.log("IN POST")
+
+  var newQuote = new Quotable();
+  newQuote.title = req.body.title;
+  newQuote.body = req.body.body;
+  newQuote.author = req.body.author;
+  newQuote.tags = req.body.tags;
+
+  newQuote.save(function(err){
+    if(err){
+      console.log("ERROR")
+    }
+  })
+  res.send(200, "sent, maybe");
 });
  
-  // Quotable.create({
-  //   text : req.body.text,
-  //   done : false 
-  // }, function(err, todo){
-  //   if(err){
-  //     res.send(err);
-  //   }
-  //   // get all, return newly created
-  //   Quotable.find(function(err, quotes){
-  //     if(err){
-  //       res.send(err);
-  //     }
-  //     res.json(quotes);
-  //   });
-  // });
+
 
 // DELETE
 // app.delete('', function(req, res){
@@ -82,20 +74,10 @@ app.post('/quotes', function(req, res){
 //   });
 // });
 
-// load popup.html when we go to localhost:8080
+
 app.get('*', function(req, res){
   res.sendfile('./public/popup.html')
 })
 
 app.listen(8080);
 console.log("App listening, port 8080");
-// var quoteSchema = mongoose.Schema({
-//   'title': String,
-//   'body' : String,
-//   'author' : String,
-//   'tags' : String,
-//   createdAt: {
-//     type: Date, 
-//     default: Date.now()
-//   }
-// })
