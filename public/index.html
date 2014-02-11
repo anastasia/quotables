@@ -9,14 +9,13 @@
     <!-- jQuery -->
     <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
     <!-- Angular -->
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
     <script type="text/javascript" src="lib/angular.js"></script>
     <script type="text/javascript" src="lib/angular-route.js"></script>
-    <!-- Firebase -->
-    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
   </head>
 <body>
-  <div id="leftColumn">
+  <div id="leftColumn" ng-controller="QuoteController">
     <h1>QUOTABLE</h1>
     <input id="search" name="search" placeholder="search">
   </div>
