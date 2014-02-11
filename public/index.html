@@ -2,8 +2,6 @@
   <meta charset="utf-8">
   <head>
     <!-- CSS -->
-    <script type="text/javascript" src="lib/angular.js"></script>
-    <script type="text/javascript" src="lib/angular-route.js"></script>
     <link rel="stylesheet" href="lib/fonts/webfontkit-20140211-025148/stylesheet.css" type="text/css" media="all">
     <link rel="stylesheet" type="text/css" href="lib/quotableStyles.css">
     <!-- jQuery -->
@@ -11,23 +9,26 @@
     <!-- Angular -->
     <script src="https://cdn.firebase.com/v0/firebase.js"></script>
     <script type="text/javascript" src="lib/angular.js"></script>
+
     <script type="text/javascript" src="lib/angular-route.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
   </head>
-<body  ng-controller="QuoteController">
+<body ng-controller="QuoteController">
   <div id="leftColumn">
     <h1>QUOTABLE</h1>
-    <input id="search" placeholder="search" type="search" ng-model="search" >
+    <input ng-model="searchQuotes" id="search" placeholder="search" type="search">
+    <!--  save all tags into an object on firebase -->
   </div>
     <div id="container">
-      <li class="quote" ng-repeat='quote in allQuotes | filter:search' >
+      <li ng-repeat="quote in allQuotes | orderObjectBy:'quote.date':false | filter:searchQuotes">
         <div id="info">
           <div id="quoteBody">{{ quote.body }}</div>
           <div id="quoteAuthor">{{ quote.author }}</div>
           <div id="quoteTitle">{{ quote.title }}</div>
           <div id="quoteDate">{{ }}</div>
-          <span><a href="{{ quote.url }}" id="quoteUrl" target="blank">{{ quote.urlOrigin }}  </a></span>&#183;
-          <span id="quoteTags" ng-repeat="tag in quote.tags"><a href="#" id="singleTag"> #{{tag}} </a></span>
+          <span><a href="{{ quote.url }}" id="quoteUrl" target="blank">{{ quote.urlOrigin }}  </a></span>
+          &#183;
+          <span id="quoteTags" ng-repeat="tag in quote.tags"><a href="/#/{{tag}}" id="singleTag"> #{{tag}} </a></span>
         </div>
       </li>
     </div>
