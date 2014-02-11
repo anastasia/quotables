@@ -29,6 +29,8 @@ $(function() {
     // else
     //   console.log("nooo"); // snub them.
     // })
-
   });
+
+  // $('#quoteTags').on('')
+
 });

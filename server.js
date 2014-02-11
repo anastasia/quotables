@@ -34,13 +34,13 @@ app.get('/quotes', function(req, res){
  res.send(200, 'hello')
 });
 
-app.get('/quotableSite/', function(req, res){
-  res.sendfile('./public/popup.html')
-});
+// app.get('/quotableSite', function(req, res){
+//   res.sendfile('/index.html')
+// });
 // POST /////////////////// create quotes
 
 app.post('/quotes', function(req, res){
-  console.log("IN POST")
+  console.log('IN POST')
 
   var newQuote = new Quotable();
   newQuote.title = req.body.title;
@@ -50,10 +50,10 @@ app.post('/quotes', function(req, res){
 
   newQuote.save(function(err){
     if(err){
-      console.log("ERROR")
+      console.log('ERROR')
     }
   })
-  res.send(200, "sent, maybe");
+  res.send(200, 'sent, maybe');
 });
  
 app.get('*', function(req, res){
@@ -61,7 +61,7 @@ app.get('*', function(req, res){
 })
 
 app.listen(8080);
-console.log("App listening, port 8080");
+console.log('App listening, port 8080');
 
 // DELETE
 // app.delete('', function(req, res){

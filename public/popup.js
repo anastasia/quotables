@@ -30,13 +30,18 @@ var app = angular.module('popupApp', ['ngRoute'])
       data: data,
     });
   }
-
+  $scope.tagSeparator = function(tags){
+    $scope.tagArr = [];
+    tagArr = tags.replace(/,/g, '').split(' ').sort();
+  }
 // save quote
   $scope.saveQuote = function(){
+    $scope.tagSeparator($('#quoteTags').val());
+    
     $scope.quoteObject.title = title;
     $scope.quoteObject.body = highlighted;
     $scope.quoteObject.author = $('#quoteAuthor').val();
-    $scope.quoteObject.tags = $('#quoteTags').val(); // split, make into an array
+    $scope.quoteObject.tags = tagArr; // split, make into an array
     $scope.quoteObject.date = new Date();
     $scope.quoteObject.url = url;
     // URL HERE
