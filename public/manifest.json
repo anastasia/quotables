@@ -18,5 +18,8 @@
   "permissions": ["tabs", "http://localhost/*", "http://*/*", "https://*/*"], 
   "background": {
        "scripts": ["background.js"]
-    }
+    },
+    "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'"
+        // "content_security_policy": "script-src 'self' https://cdn.firebase.com https://quotable.firebaseio.com; object-src 'self'"
+
 }

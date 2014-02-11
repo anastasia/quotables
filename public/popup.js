@@ -1,4 +1,15 @@
-var app = angular.module('popupApp', ['ngRoute'])
+ 
+
+  // var myApp = angular.module("MyApp", ["firebase"]);
+// can't use get requests, have to use event listeners, looking for loaded requests 
+// quotations.on('loaded', function(){})
+// var fred = new Firebase('https://stites.firebaseio.com/Users/Fred');
+//       fred.auth('Eo85u1MXfxVA4udvqIdjnyTYkL51Zz0AFABP962M');
+//       item.topic = topic || 'uncategorized';
+//       fred.child(Math.round(id)).set(item);
+ 
+
+var app = angular.module('popupApp', ['ngRoute', 'firebase'])
   .config(function($routeProvider){
     $routeProvider
       .when('/', {
@@ -8,14 +19,14 @@ var app = angular.module('popupApp', ['ngRoute'])
         templateUrl : 'popup.html' 
       })
     })
-  .controller('popupController', function ($scope, $http){
-  $http({
-      method:'GET',
-      url: '/',
-    })
+  .controller('popupController', function ($scope, $firebase){
+  // $http({
+  //     method:'GET',
+  //     url: '/',
+  //   })
 
   $scope.quoteObject = {
-    'title' : 'title',
+    'title' : 'title', 
     'body' : 'body',
     'author' : 'author',
     'tags' : [],
@@ -23,13 +34,12 @@ var app = angular.module('popupApp', ['ngRoute'])
   };
 // first save quote, then post
   $scope.sendQuote = function(data){
-     console.log("in here!")
-     return $http({
-      method: 'POST',
-      url: '/quotes',
-      data: data,
-    });
+    console.log("sending quote!", data)
+    var quotations = new Firebase("https://quotable.firebaseio.com");
+    $scope.quote = $firebase(quotations);
+    $scope.quote.$add(data);
   }
+
   $scope.tagSeparator = function(tags){
     $scope.tagArr = [];
     tagArr = tags.replace(/,/g, '').split(' ').sort();
@@ -45,12 +55,12 @@ var app = angular.module('popupApp', ['ngRoute'])
     $scope.quoteObject.date = new Date();
     $scope.quoteObject.url = url;
     // URL HERE
-    console.log($scope.quoteObject);
+    console.log("saving quote: ", $scope.quoteObject);
     $scope.sendQuote($scope.quoteObject);
   };
 
 });
-
+   // Automatically syncs everywhere in realtime
 function indexController ($scope, $http){
 
 }
@@ -88,3 +98,8 @@ function indexController ($scope, $http){
   //   data: $scope.quoteObject
   // })
 // quote object
+    //  return $http({
+    //   method: 'GET',
+    //   url: 'http://localhost:8080/quotes',
+    //   data: data,
+    // });
