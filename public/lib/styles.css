@@ -3,3 +3,13 @@ body {
   /*background-image: url("./geometry/geometry.png");*/
   /*background-image: url("./pack133-abstract-patterns/files/pattern_images/14.png");*/
 }
+
+li {
+  list-style: none;
+}
+
+input {
+  width: 300px;
+  height: 40px;
+  margin-top: 5px;
+}

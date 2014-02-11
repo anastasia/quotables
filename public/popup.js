@@ -13,6 +13,7 @@ var app = angular.module('popupApp', ['ngRoute'])
       method:'GET',
       url: '/',
     })
+  
   $scope.quoteObject = {
     'title' : 'title',
     'body' : 'body',
@@ -36,8 +37,8 @@ var app = angular.module('popupApp', ['ngRoute'])
     $scope.quoteObject.author = $('#quoteAuthor').val();
     $scope.quoteObject.tags = $('#quoteTags').val(); // split, make into an array
     $scope.quoteObject.date = new Date();
-
     console.log($scope.quoteObject);
+    $scope.sendQuote();
   };
 
 });
