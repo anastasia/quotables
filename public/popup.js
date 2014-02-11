@@ -1,13 +1,10 @@
-var app = angular.module('popupApp', ['ngRoute', 'firebase'])
+var app = angular.module('popupApp', ['ngRoute', 'firebase'])// 
   .config(function($routeProvider){
     $routeProvider
       .when('/', {
         controller: 'PopupController',
         templateUrl : 'popup.html' 
       })
-    })
-  .config(function($routeProvider){
-    $routeProvider
       .when('/index.html', {
         controller: 'QuoteController',
         templateUrl : 'index.html' 
@@ -55,8 +52,9 @@ var app = angular.module('popupApp', ['ngRoute', 'firebase'])
   })
   .controller('QuoteController', function ($scope, $firebase){
     $scope.quotes = new Firebase('https://quotable.firebaseio.com');
-    $scope.quotes.on('value', function(snapshot) {
-      console.log('fred’s first name is ' + JSON.stringify(snapshot.val()));
+    $scope.quotes.on('value', function(all) {
+      console.log(all.val())
+      $scope.allQuotes = all.val();
     });
   });
 

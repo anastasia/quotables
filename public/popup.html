@@ -13,7 +13,7 @@
     <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
     <!-- main JS -->
   </head>
-  <body ng-controller="PopupController">
+  <body>
     <ul>
     <form id="quoteableForm" ng-submit="saveQuote()">
       <li><textarea id="quoteBody" placeholder="Save a quote for later" name="quoteBody"  maxlength="500"></textarea></li>
@@ -25,31 +25,6 @@
        <!-- ng-click="saveQuote().then(sendQuote())" -->
     </form>  
     </ul>
-   <!-- <script type="text/javascript">
-      // $(function() {
-
-        // chrome.tabs.get(info.tabId,function(tab){
-        //   console.log(tab.title)
-        // }
-          // chrome.tabs.getSelected(null,function(tab) { // null defaults to current window
-          //   var title = tab.title;
-          //   alert title
-          //   $('#quoteTitle').val(title);
-          // });
-        // $("#form").submit(function() {
-              // console.log($(this).serialize(), { // method creates a text string in standard URL-encoded notation
-              // beforeSend: function() {
-              //     $('#submit').attr('disabled', 'disabled').text('Saving...');
-              //   },
-            //   complete: function() {
-            //     window.close();
-            // }
-          // });
-          // return false;
-        // });
-      // }); -->
-
-    <!-- <li id="reference">{{quoteObject}}</li> -->
     <script type="text/javascript" src="background.js"></script>
     <script type="text/javascript" src="popup.js"></script>
   </body>

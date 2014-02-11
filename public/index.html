@@ -1,25 +1,27 @@
-<html ng-app="popupApp">
-<meta charset="utf-8">
-<head>
-
-  <link rel="stylesheet" href="lib/fonts/webfontkit-20140211-025148/stylesheet.css" type="text/css" media="all">
-  <link rel="stylesheet" type="text/css" href="lib/quotableStyles.css">
-  <!-- jQuery -->
-  <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
-  
-  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-  <!-- Angular -->
-  <script type="text/javascript" src="lib/angular.js"></script>
-  <script type="text/javascript" src="lib/angular-route.js"></script>
-
-  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
-  <!-- main JS -->
-  <script type="text/javascript" src="popup.js"></script>
-</head>
-<body ng-controller="QuoteController">
-  <h1>QUOTABLE</h1>
+<html ng-app="quoteApp">
+  <meta charset="utf-8">
+  <head>
+    <!-- CSS -->
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route.js"></script>
+    <link rel="stylesheet" href="lib/fonts/webfontkit-20140211-025148/stylesheet.css" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="lib/quotableStyles.css">
+    <!-- jQuery -->
+    <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
+    <!-- Angular -->
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
+  </head>
+<body>
+  <div id="leftColumn">
+    <h1>QUOTABLE</h1>
+    <input id="search" name="search" placeholder="search">
+  </div>
     <div id="container">
-      <li class="quote" ng-repeat="quote in quotes | filter:search">
+      <li class="quote" ng-repeat="quote in allQuotes | filter:search">
         <div id="info">
           <div id="quoteBody">{{ quote.body }}</div>
           <div id="quoteTitle">{{ quote.title }}</div>
@@ -29,5 +31,7 @@
         </div>
       </li>
     </div>
+    <!-- MAIN JS -->
+  <script type="text/javascript" src="quote.js"></script>
 </body>
 </html>

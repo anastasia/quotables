@@ -58,6 +58,7 @@ input {
 }
 #quoteBody {
   overflow: scroll;
+  height: 100px;
 }
 #quoteSubmit {
   border:0;
