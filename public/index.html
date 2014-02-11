@@ -14,10 +14,10 @@
     <script type="text/javascript" src="lib/angular-route.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
   </head>
-<body>
-  <div id="leftColumn" ng-controller="QuoteController">
+<body  ng-controller="QuoteController">
+  <div id="leftColumn">
     <h1>QUOTABLE</h1>
-    <input id="search" name="search" placeholder="search">
+    <input id="search" name="search" placeholder="search" ng-model="search">
   </div>
     <div id="container">
       <li class="quote" ng-repeat="quote in allQuotes | filter:search">

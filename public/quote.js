@@ -10,9 +10,10 @@ var appTwo = angular.module('quoteApp', ['ngRoute', 'firebase']);
 
   appTwo.controller('QuoteController', function ($scope, $firebase){
     $scope.quotes = new Firebase('https://quotable.firebaseio.com');
-    $scope.quotes.on('value', function(all) {
-      $scope.allQuotes = all.val();
-      console.log("in controller", $scope.allQuotes)
-    });
+    $scope.allQuotes = $firebase($scope.quotes)
   });
 
+// $scope.quotes.on('value', function(all) {
+//       $scope.allQuotes = all.val();
+//       console.log("in controller", $scope.allQuotes)
+//     });
