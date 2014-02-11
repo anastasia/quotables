@@ -17,10 +17,10 @@
 <body  ng-controller="QuoteController">
   <div id="leftColumn">
     <h1>QUOTABLE</h1>
-    <input id="search" name="search" placeholder="search" ng-model="search">
+    <input id="search" placeholder="search" ng-model="searchQuote">
   </div>
     <div id="container">
-      <li class="quote" ng-repeat="quote in allQuotes | filter:search">
+      <li class="quote" ng-repeat="quote in allQuotes | filter:searchQuote">
         <div id="info">
           <div id="quoteBody">{{ quote.body }}</div>
           <div id="quoteTitle">{{ quote.title }}</div>

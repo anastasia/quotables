@@ -7,7 +7,6 @@ $(function() {
     // date = d.getDate() + " " + d.getMonth() + 1 + " " + d.getFullYear() + ''; // format later
     document.getElementById('quoteTitle').value = title;
     document.getElementById('quoteDate').innerHTML = d;
-    console.log(d)
     // var text = tab.getSelection().baseNode
   });
 
@@ -17,7 +16,6 @@ $(function() {
     if(selection){
       highlighted = selection[0];
       document.getElementById('quoteBody').value = highlighted;
-      console.log(highlighted)
     }
   });
 
