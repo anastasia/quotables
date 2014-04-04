@@ -3,13 +3,10 @@ $(function() {
   chrome.tabs.getSelected(null, function(tab) {
     url = tab.url;
     urlOrigin = url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1]
-    console.log(tab.url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1])
     title = tab.title;
     d = new Date();
-    // date = d.getDate() + " " + d.getMonth() + 1 + " " + d.getFullYear() + ''; // format later
     document.getElementById('quoteTitle').value = title;
     document.getElementById('quoteDate').innerHTML = d;
-    // var text = tab.getSelection().baseNode
   });
 
   chrome.tabs.executeScript( {
@@ -20,9 +17,4 @@ $(function() {
       document.getElementById('quoteBody').value = highlighted;
     }
   });
-
-  chrome.extension.onRequest.addListener(function(request, sender, sendResponse){
-
-  });
-
 });
