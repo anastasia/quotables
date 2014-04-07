@@ -23,7 +23,7 @@ var quoteApp = angular.module('quoteApp', ['ngRoute', 'firebase']);
         }
       });
       filtered.sort(function (a, b) {
-        return (a[field] > b[field]);
+        return (a[field] < b[field]);
       });
       if(reverse) filtered.reverse();
       return filtered;
