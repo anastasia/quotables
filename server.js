@@ -1,24 +1,22 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
+var express   = require('express');
+var mongoose  = require('mongoose');
+var app       = express();
 
-// using https://modulus.io/ database
-// mongoose.connect('mongodb://localhost/quotes')
 mongoose.connect('mongodb://localhost/app') // write localhost, 
 
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
-  app.use(express.logger('dev')); // log every request to the console // bodyParser creates a ton of temp files, change this later?
-  app.use(express.bodyParser()); // pull information from html in POST
-  app.use(express.methodOverride()); // simulate DELETE and PUT
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
 });
 
 // create mongoose model to perform all VERBS on 
 var Quotable = mongoose.model('Quotable', {
-  'title': String,
-  'body' : String,
+  'title'  : String,
+  'body'   : String,
   'author' : String,
-  'tags' : String,
+  'tags'   : String,
   createdAt: {
     type: Date, 
     default: Date.now()
@@ -31,7 +29,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/quotes', function(req, res){
- res.send(200, 'hello')
+ res.send(200, 'quotes')
 });
 
 // app.get('/quotableSite', function(req, res){
@@ -40,20 +38,17 @@ app.get('/quotes', function(req, res){
 // POST /////////////////// create quotes
 
 app.post('/quotes', function(req, res){
-  console.log('IN POST')
-
-  var newQuote = new Quotable();
-  newQuote.title = req.body.title;
-  newQuote.body = req.body.body;
+  var newQuote    = new Quotable();
+  newQuote.title  = req.body.title;
+  newQuote.body   = req.body.body;
   newQuote.author = req.body.author;
-  newQuote.tags = req.body.tags;
+  newQuote.tags   = req.body.tags;
 
   newQuote.save(function(err){
-    if(err){
-      console.log('ERROR')
-    }
-  })
-  res.send(200, 'sent, maybe');
+    if(err) throw err;
+  }, function(){
+    res.send(200, 'sent!');
+  });
 });
  
 app.get('*', function(req, res){

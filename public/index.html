@@ -14,23 +14,21 @@
   <div id="leftColumn">
     <h1>QUOTABLE</h1>
     <input ng-model="searchQuotes" id="search" placeholder="search" type="search">
-    <li id="allTags" ng-repeat="tag in allTags"> <!-- {{ key }} --> <!-- {{ tag }} laaaaattttteeeeeeerrrrrrrrr-->
-    </li>
+    <!--  save all tags into an object on firebase -->
   </div>
     <div id="container">
-      <li ng-repeat="quote in allQuotes | orderObjectBy:'quote.date':true | filter:searchQuotes">
+      <li ng-repeat="quote in allQuotes | orderObjectBy:'quote.date':false | filter:searchQuotes">
         <div id="info">
           <div id="quoteBody">{{ quote.body }}</div>
           <div id="quoteAuthor">{{ quote.author }}</div>
-          <div id="quoteTitle">{{ quote.title }} <span id="quoteDate">{{ quote.date | date:'medium'}}</span></div>
-
+          <div id="quoteTitle">{{ quote.title }}</div>
+          <div id="quoteDate">{{ }}</div>
           <span><a href="{{ quote.url }}" id="quoteUrl" target="blank">{{ quote.urlOrigin }}  </a></span>
           &#183;
-          <span id="quoteTags" ng-repeat="tag in quote.tags"><a href="/#/{{tag}}" id="singleTag"> #{{ tag }} </a></span>
+          <span id="quoteTags" ng-repeat="tag in quote.tags"><a href="/#/{{tag}}" id="singleTag"> #{{tag}} </a></span>
         </div>
       </li>
     </div>
-    <!-- MAIN JS -->
   <script type="text/javascript" src="quote.js"></script>
 </body>
 </html>

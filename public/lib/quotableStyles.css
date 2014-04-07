@@ -6,8 +6,6 @@ body {
   font-family: "cabinregular", sans-serif;
   margin-left: 30px;
 }
-::selection {color:blue;background:#fff;}
-::-moz-selection {color:blue;background:#fff;}
 
 ::-webkit-input-placeholder { /* WebKit browsers */
     color: #01DFD7;
@@ -107,17 +105,14 @@ input {
   font-family: "cabinregular", sans-serif;
   padding-bottom: 4px;
 }
-
 #quoteTitle {
   font-family: "cabinitalic", sans-serif;
   color: #999;
   font-size: 13px;
 }
-
 #quoteAuthor {
   font-size: 13px;
 }
-
 #quoteUrl {
   text-align:right;
   font-size: 13px;
@@ -127,14 +122,6 @@ input {
   font-size: 13px;
   color: #999;
 }
-
-#quoteDate {
-  font-family: "cabinregular", sans-serif;
-  font-size: 11px;
-  color: #A4A4A4;
-  float:right;
-}
-
 a:hover {
   color:blue;
 }

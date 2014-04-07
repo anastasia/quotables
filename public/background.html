@@ -2,27 +2,27 @@
   <head>
     <script type="text/javascript" src="/lib/jquery.min.js"></script>
     <script type="text/javascript">
-    $(function() {
+      $(function() {
 
-      chrome.tabs.getSelected(null, function(tab) {
-        var url = (tab.url);
-        console.log(url)  
-      });
+        chrome.tabs.getSelected(null, function(tab) {
+          var url = (tab.url);
+          console.log(url)  
+        });
 
-      $("#form").submit(function() {
-        console.log("SUBMITTING")
-      });
+        $("#form").submit(function() {
+          console.log("SUBMITTING")
+        });
 
-      // background page listens for requests:
-      chrome.extension.onRequest.addListener(function(request, sender, sendResponse{
-      if (request.method == 'GetUserList')
-        sendResponse({result: db.getGetUserList()});
-      else if (request.method == 'GetUser')
-        sendResponse({result: db.getGetUser(request.username)});
-      else
-        sendResponse({}); // snub them.
-      })
-      // GET
+        // background page listens for requests:
+        chrome.extension.onRequest.addListener(function(request, sender, sendResponse{
+        if (request.method == 'GetUserList')
+          sendResponse({result: db.getGetUserList()});
+        else if (request.method == 'GetUser')
+          sendResponse({result: db.getGetUser(request.username)});
+        else
+          sendResponse({}); // snub them.
+        })
+        // GET
     });
     
     </script>
