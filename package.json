@@ -1,11 +1,16 @@
 {
-"name"         : "node-todo",
-"version"      : "0.0.0",
-"description"  : "Simple quote saving application.",
-"main"         : "server.js",
-"author"       : "Scotch",
-"dependencies" : {
-  "express"    : "~3.4.4",
-  "mongoose"   : "~3.6.2"
+  "name": "quotables",
+  "version": "0.0.0",
+  "description": "A quick way to save your favorite quotes on the web",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "~2.1.1",
+    "express": "~3.5.1"
   }
 }
