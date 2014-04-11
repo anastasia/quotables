@@ -1,4 +1,4 @@
-
+var path = "https://quotable.firebaseio.com"
 var app = angular.module('popupApp', ['ngRoute', 'firebase'])// 
   
   .config(function($routeProvider){
@@ -18,33 +18,37 @@ var app = angular.module('popupApp', ['ngRoute', 'firebase'])//
     };
 
     $scope.sendQuote = function(data, cb){
-      var quotations = new Firebase("https://quotable.firebaseio.com/quotes");
+      var quotations = new Firebase(path + '/quotes');
       $scope.quote = $firebase(quotations);
       $scope.quote.$add(data);
-      cb();
+      cb()
     };
 
     $scope.saveQuote = function() {
       quoteFactory.saveQuote(function(data){
         $scope.sendQuote(data, function(){
-          console.log('saved!')
+          // window.setTimeout(function(){
+            quoteFactory.saveToTags(data.tags)
+            console.log('saved!')
+          //     window.close()
+          //   },500);
         });
       });
     };
   }])
   .controller('QuoteController', function ($scope, $firebase){
-    $scope.quotes = new Firebase('https://quotable.firebaseio.com');
+    $scope.quotes = new Firebase(path);
     $scope.quotes.on('value', function(all) {
       $scope.allQuotes = all.val();
     });
   });
 
-app.factory('quoteFactory', [function(){
+app.factory('quoteFactory', ['$firebase', function($firebase){
   return {
     saveQuote: function(cb){
       var tags = ($('#quoteTags').val().replace(/,/g, '').split(' ').sort());
     
-      quoteObject = {
+      obj = {
         title : title,
         body  : highlighted,
         author: $('#quoteAuthor').val(),
@@ -52,9 +56,36 @@ app.factory('quoteFactory', [function(){
         date  : new Date(),
         url   : url
       }
-      cb(quoteObject);
+      cb(obj);
+    },
+    saveToTags: function(tags, quoteID) {   
+      var allTags = new Firebase(path + '/tags');
+      console.log(allTags, tags)
+      for(var i = 0; i < tags.length; i++) {
+        var exists;
+        allTags.child(tags[i]).once('value', function(snapshot) {
+          exists = (snapshot.val() !== null);
+        });
+          var tag = $firebase(allTags);
+        if(!exists) {
+          var toSave = tags[i]
+          
+          var obj = {toSave:toSave}
+          tag.$set(obj);
+          tag.$add({toSave:'this'})
+          // tags[i] : tags[i]
+          //   body: tags[i],
+          //   quote_id: quoteID
+          // }
+          console.log('saving ', toSave)
+          // tag.$add(tagObj);
+          tag.$save(toSave)
+        } else {
+          console.log('tag exists!')
+        }
+      };
     }
-  };    
+  }
 }]);
 
 
@@ -148,23 +179,8 @@ app.factory('quoteFactory', [function(){
   //     $scope.tag.$add(tag);
   //   }
 
-  //   var tagsExistCallback = function(tag, exists) {
-  //     if (exists) {
-  //       console.log("tag exists")
-  //     } else {
-  //       $scope.saveTags(tag);
-  //     }
-  //   }
 
   //   // Tests to see if /users/<userId> has any data. 
-  //   var tagsExist = function(tag) {   
-  //     var tagsRef = new Firebase(tagsLocation);
-  //     tagsRef.child(tag).once('value', function(snapshot) {
-  //       var exists = (snapshot.val() !== null);
-  //       console.log(tagsRef.child(tag))
-  //       tagsExistCallback(tag, exists);
-  //     });
-  //   }
   // });
 
 

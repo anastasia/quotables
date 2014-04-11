@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="lib/styles.css" type="text/css" media="all">
     <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
     <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.3.2/firebase-simple-login.js'>
+    </script>
     <script type="text/javascript" src="lib/angular.js"></script>
     <script type="text/javascript" src="lib/angular-route.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
@@ -13,6 +15,23 @@
     <script type="text/javascript" src="popup.js"></script>
   </head>
   <body ng-controller="PopupController">
+    <script>
+      var chatRef = new Firebase('https://quotable.firebaseio.com');
+      var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+        if (error) {
+          // an error occurred while attempting login
+          console.log(error);
+        } else if (user) {
+          // user authenticated with Firebase
+          console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+        } else {
+          appendForm();
+
+        }
+      });
+    </script>
+
+
     <ul>
     <form id="quoteableForm" ng-submit="saveQuote()">
       <li><textarea id="quoteBody" placeholder="Save a quote for later" name="quoteBody"  maxlength="200"></textarea></li>
