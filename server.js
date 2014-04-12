@@ -1,21 +1,49 @@
-var mysql      = require('mysql');
-var express    = require('express');
-var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'password'
+var express = require('express');
+var fs      = require("fs");
+var file    = process.env.CLOUD_DIR + "/" + "test.db";
+var exists  = fs.existsSync(file);
+var app     = express();
+if(!exists) {
+  console.log("Creating DB file.");
+  fs.openSync(file, "w");
+}
+
+var sqlite3 = require("sqlite3").verbose();
+var db = new sqlite3.Database(file);
+
+db.serialize(function() {
+  if(!exists) {
+    db.run("CREATE TABLE Users (user_id INTEGER UNIQUE NOT NULL PRIMARY KEY, name VARCHAR(20))");
+    db.run("CREATE TABLE Quotes (quote_id INTEGER UNIQUE NOT NULL PRIMARY KEY, content VARCHAR, author VARCHAR, title VARCHAR, url VARCHAR)");
+    db.run("CREATE TABLE Tags (tag_id INTEGER UNIQUE NOT NULL PRIMARY KEY, tag VARCHAR(20), user_id)");
+    db.run("CREATE TABLE Quotes_Tags (tag_id, quote_id)");
+  }
+
+  var stmt = db.prepare("INSERT INTO Users VALUES (?)");
+
+  //Insert random data
+  var rnd;
+  for (var i = 0; i &lt; 10; i++) {
+    rnd = Math.floor(Math.random() * 10000000);
+    stmt.run("Thing #" + rnd);
+  }
+
+  stmt.finalize();
+  db.each("SELECT rowid AS id, thing FROM Stuff", function(err, row) {
+    console.log(row.id + ": " + row.thing);
+  });
 });
 
-connection.connect();
-var app = express();
+db.close();
+
 
 app.set('port', 3000);
 
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
-  app.use(express.logger('dev')); // log every request to the console // bodyParser creates a ton of temp files, change this later?
-  app.use(express.bodyParser()); // pull information from html in POST
-  app.use(express.methodOverride()); // simulate DELETE and PUT
+  app.use(express.logger('dev')); 
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
 });
 
 // connection.query('USE test_database');
