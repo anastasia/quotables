@@ -3,8 +3,8 @@ var fs      = require("fs");
 var file    = "test.db";
 var exists  = fs.existsSync(file);
 var app     = express();
+var url     = require('url');
 if(!exists) {
-  console.log("Creating DB file.");
   fs.openSync(file, "w");
 }
 
@@ -22,9 +22,7 @@ db.serialize(function() {
 
 db.close();
 
-
 app.set('port', 3000);
-
 app.configure(function(){
   app.use(express.static(__dirname + '/public'));
   app.use(express.logger('dev')); 
@@ -32,19 +30,33 @@ app.configure(function(){
   app.use(express.methodOverride());
 });
 
-// connection.query('USE test_database');
-// app.get('/api', function (req, res) {
-//   res.send('Our Sample API is up...');
-// });
+app.listen(app.get('port'));
+console.log('Express server listening on port ' + app.get('port'));
+
+/*-----------------------------routes------------------------------------------------*/
 
 
 app.get('/', function(req, res){
-  connection.query('SELECT * FROM Quotes', function(err, rows){
-    res.render('content', {content : rows});
-  });
+  console.log('AHA! ', req)
+  res.render('./popup/popup.html')
+  // connection.query('SELECT * FROM Quotes', function(err, rows){
+  //   res.render('content', {content : rows});
+  // });
 });
 
+app.post('/quotes', function(req, res){
+  console.log('POSTING TO QUOTES, aaahhhhhh! ', req, res)
+  // db.serialize(function() {
+  //   db.run("INSERT")
+  // }
+  res.send(200);
+});
+
+app.get('/quotes', function(req, res){
+  console.log('HEY THERE ')
+  res.send(200);
 
 
-app.listen(app.get('port'));
-console.log('Express server listening on port ' + app.get('port'));
+})
+// TODO: users auth, tags
+

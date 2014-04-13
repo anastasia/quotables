@@ -32,21 +32,3 @@ var appTwo = angular.module('quoteApp', ['ngRoute', 'firebase']);
       return filtered;
     };
   });
-    // console.log($scope.allQuotes)
-  
-// $scope.quotes.on('value', function(all) {
-//       $scope.allQuotes = all.val();
-//       console.log("in controller", $scope.allQuotes)
-//     });
-// $scope.arrayOfTags = function(someTags){
-//   for(var key in someTags[0]){
-//     if(typeof someTags[key] !== "function"){
-//       if($scope.allUniqueTags.indexOf(someTags[key]) < 0){
-//         $scope.allUniqueTags.push(someTags[key])
-//         console.log($scope.allUniqueTags)
-//       }
-
-//     }
-//   }
-// }
-// $scope.arrayOfTags($scope.allTags)

@@ -1,20 +1,15 @@
-var highlighted, url, title;
+var url;
 $(function() {
   chrome.tabs.getSelected(null, function(tab) {
     url = tab.url;
     urlOrigin = url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1]
-    title = tab.title;
-    d = new Date();
-    document.getElementById('quoteTitle').value = title;
-    document.getElementById('quoteDate').innerHTML = d;
+    document.getElementById('quote_title').value = tab.title;
+    document.getElementById('quote_date').innerHTML = new Date();
   });
 
   chrome.tabs.executeScript( {
     code: "window.getSelection().toString();"
     }, function(selection) {
-    if(selection){
-      highlighted = selection[0];
-      document.getElementById('quoteBody').value = highlighted;
-    }
+    if(selection) document.getElementById('quote_body').value = selection[0];
   });
 });

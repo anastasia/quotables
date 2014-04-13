@@ -4,26 +4,26 @@
   <head>
     <link rel="stylesheet" href="fonts/webfontkit-20140211-025148/stylesheet.css" type="text/css" media="all">
     <link rel="stylesheet" href="lib/styles.css" type="text/css" media="all">
-    <!-- jQuery -->
     <script type="text/javascript" src="lib/jquery-1.11.0.js"></script>
-    <!-- Angular -->
-    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
     <script type="text/javascript" src="lib/angular.js"></script>
     <script type="text/javascript" src="lib/angular-route.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.min.js"></script>
-    <!-- MAIN JS -->
     <script type="text/javascript" src="background.js"></script>
     <script type="text/javascript" src="popup.js"></script>
   </head>
   <body ng-controller="PopupController">
     <ul>
-    <form id="quoteableForm" ng-submit="saveQuote()">
-      <li><textarea id="quoteBody" placeholder="Save a quote for later" name="quoteBody"  maxlength="200"></textarea></li>
-      <li><input id="quoteAuthor" placeholder="Author" name="quoteAuthor"></li>
-      <li><input id="quoteTitle" placeholder="title" name="quoteTitle"></li>
-      <li><input id="quoteTags" placeholder="tags" name="quoteTags"></li>
-      <li id="quoteDate" style="display:none;"></li>
-      <input type='submit' id="quoteSubmit">
+    <form id="quoteableForm" ng-submit='submit(quote)'>
+      <tr>
+      <td>
+        <textarea id="quote_body" placeholder="Save a quote for later" ng-model="quote.body" name="qBody"  maxlength="200"></textarea>
+      </td>
+      <td><input id="quote_author" placeholder="author" ng-model="quote.author" name="qAuthor"></td>
+      <td><input id="quote_title" placeholder="title" ng-model="quote.title" name="qTitle"></td>
+      <td><input id="quote_tags" placeholder="tags" ng-model="tags" name="qTags"></td>
+      <td><li id="quote_date" ng-model="quote.date" style="display:none;"></li></td>
+      <input id="quote_submit" type="submit">
+      </tr> 
+      <li style="display:none;">{{quote}}</li> <!-- doesn't work without this?! -->
     </form>  
     </ul>
   </body>

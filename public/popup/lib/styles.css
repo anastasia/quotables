@@ -56,11 +56,11 @@ input {
   border-right: 0px;
   font-size: 13px;
 }
-#quoteBody {
+#quote_body {
   overflow: scroll;
   height: 100px;
 }
-#quoteSubmit {
+#quote_submit {
   border:0;
   background-color:#fff;
   font-family: helvetica;
@@ -72,10 +72,10 @@ input {
   float: right;
 }
 
-#quoteAuthor {
+#quote_author {
 
 }
-#quoteDate {
+#quote_date {
   font-size: 14px;
 }
 #reference {
