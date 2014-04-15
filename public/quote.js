@@ -1,20 +1,12 @@
-var appTwo = angular.module('quoteApp', ['ngRoute', 'firebase']);
+var appTwo = angular.module('quoteApp', []);
   
-  appTwo.config(function($routeProvider){
-    $routeProvider
-      .when('/index.html', {
-        controller: 'QuoteController',
-        templateUrl : 'index.html' 
-      })
-    });
-
-  appTwo.controller('QuoteController', function ($scope, $firebase){
-    $scope.quotes = new Firebase('https://quotable.firebaseio.com/quotes');
-    $scope.allQuotes = $firebase($scope.quotes)
-    $scope.tags = new Firebase('https://quotable.firebaseio.com/tags');
-    $scope.allTags = $firebase($scope.tags)
-    console.log($scope.allTags)
-    $scope.allUniqueTags = [];
+  appTwo.controller('QuoteController', function ($scope){
+    $scope.quotes = [];
+    // $scope.allQuotes = $firebase($scope.quotes)
+    // $scope.tags = ''
+    // $scope.allTags = $firebase($scope.tags)
+    // console.log($scope.allTags)
+    // $scope.allUniqueTags = [];
   });
 
   appTwo.filter('orderObjectBy', function() {

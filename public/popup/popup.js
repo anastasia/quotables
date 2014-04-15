@@ -1,63 +1,42 @@
-var path = "http://localhost:3000"
-var app = angular.module('popupApp', [])// 
-  
-  // .config(function($routeProvider){
-  //   $routeProvider
-  //     .when('/', {
-  //       controller  : 'PopupController',
-  //       templateUrl : 'popup.html' 
-  //     })
-  //     .when('/index.html', {
-  //       controller  : 'QuoteController',
-  //       templateUrl : 'index.html' 
-  //     })
-  //   })
-  .controller('PopupController', ['quoteFactory', '$scope', function (quoteFactory, $scope) {
-    $scope.quote = {
-      title:null,
-      body:null,
-      url:null,
-      author: null,
-      date: new Date()
-    };
+var path    = "http://localhost:3000";
+// var sqlite3 = require("sqlite3").verbose();
+var file    = "test.db";
+var app     = angular.module('popupApp', []) 
+  .controller('PopupController', function (quoteFactory, $scope) {
+  $scope.submit = function() {
 
-    $scope.submit = function() {
-      console.log($scope.quote)
-      // $scope.quote = {
-      //   title: title,
-      //   body: body,
-      //   url:url,
-      //   author:author,
-      //   date:date
-      // };
-      quoteFactory.sendQuote($scope.quote);
+    $scope.quote = { 
+      title: $('#quote_title').val(),
+      author: $('#quote_author').val(),
+      content: $('#quote_body').val(),
+      date: new Date() 
     }
-  }])
-  .controller('QuoteController', function ($scope){
-    $scope.quotes.on('value', function(all) {
-      $scope.allQuotes = all.val();
-    });
-  });
+    quoteFactory.sendQuote($scope.quote);
+  };
+})
 
-app.factory('quoteFactory', ['$http', function($http){
+app.factory('quoteFactory', function($http){
   return {
     sendQuote: function(data){
-      // console.log(data)
       $http({
         method: 'POST',
         url: path + '/quotes',
         data: JSON.stringify(data)
-      }).success(function(data, status, headers){
-        console.log(data)
-        // window.close();
+      }).success(function(data, status, headers) {
+        var tags = ($('#quoteTags').val().replace(/,/g, '').split(' ').sort());
+        if(tags.length) {
+          for(var i = 0; i < tags.length; i++) {
+            $http({
+              method: 'POST',
+              url: path + '/tags/' + data.body.quote_id,
+              data: JSON.stringify(tags[i])
+            })
+          }
+        }
+        window.close();
       }).error(function(data){
-        console.log('ERROR ',data)
+        console.log('ERROR ',data);
       });
-      // var tags = ($('#quoteTags').val().replace(/,/g, '').split(' ').sort());
-    
-    },
-    separateTags: function(tags, cb) {
-
     }
   }
-}]);
+});

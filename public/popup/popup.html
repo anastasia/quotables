@@ -12,7 +12,7 @@
   </head>
   <body ng-controller="PopupController">
     <ul>
-    <form id="quoteableForm" ng-submit='submit(quote)'>
+    <form id="quoteableForm" ng-submit='submit()'>
       <tr>
       <td>
         <textarea id="quote_body" placeholder="Save a quote for later" ng-model="quote.body" name="qBody"  maxlength="200"></textarea>
@@ -23,7 +23,6 @@
       <td><li id="quote_date" ng-model="quote.date" style="display:none;"></li></td>
       <input id="quote_submit" type="submit">
       </tr> 
-      <li style="display:none;">{{quote}}</li> <!-- doesn't work without this?! -->
     </form>  
     </ul>
   </body>
