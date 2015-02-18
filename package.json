@@ -1,11 +1,19 @@
 {
-  "name": "node-todo",
+  "name": "",
   "version": "0.0.0",
   "description": "Simple quote saving application.",
   "main": "server.js",
-  "author": "Scotch",
+  "author": "anastasia",
+  "scripts": {
+    "start": "NODE_PATH='./app' coffee app.coffee"
+  },
   "dependencies": {
-    "express": "~3.4.4",
+    "coffee-script": "^1.9.1",
+    "express": "^4.11.2",
+    "fibrous": "^0.3.3",
     "mongoose": "~3.6.20"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }
