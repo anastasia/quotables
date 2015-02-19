@@ -2,7 +2,7 @@
   "name": "",
   "version": "0.0.0",
   "description": "Simple quote saving application.",
-  "main": "server.js",
+  "main": "app.coffee",
   "author": "anastasia",
   "scripts": {
     "start": "NODE_PATH='./app' coffee app.coffee"
