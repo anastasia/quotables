@@ -1,16 +1,16 @@
 User         = require '../db/models/user'
 
 exports.new = (req, res) ->
-  res.render 'userNew'
+  res.render 'users/userNew'
 
 exports.list = (req, res) ->
   users = User.sync.find()
-  res.redirect 'users/list', {users:users}
+  res.render 'users/usersList', {users:users}
 
 exports.create = (req, res) ->
   user = new User {email:req.body.email}
   User.sync.register user, req.body.password
-  res.redirect 'users/list'
+  res.redirect '/users/list'
 
 exports.update = (req, res) ->
 
