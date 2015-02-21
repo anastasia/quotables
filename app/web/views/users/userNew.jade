@@ -1,4 +1,6 @@
-html
+extends ../layout
+
+block content
   body
     h2 Create a new user:
     form.form-group(name='user', action='/users/new', method='post')
