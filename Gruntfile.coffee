@@ -31,7 +31,7 @@ module.exports = (grunt) ->
     watch:
       compile:
         files: watch_this
-        tasks: ['coffee', 'html2js']
+        tasks: ['coffee', 'html2js', 'stylus', 'concat']
 
     concat:
       dist:
@@ -43,11 +43,18 @@ module.exports = (grunt) ->
       app:
         src: ['./app/web/views/templates.js', './app/web/main-app.js']
         dest: './app/web/app.js'
+
+    stylus:
+      compile:
+        options:
+          compress: true
+        files: './app/web/styles.css':'./app/web/styles/*.styl'
   })
 
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-html2js')
+  grunt.loadNpmTasks('grunt-contrib-stylus');
 
-  grunt.registerTask('default', ['coffee', 'html2js', 'concat', 'watch'])
+  grunt.registerTask('default', ['coffee', 'html2js', 'concat', 'stylus', 'watch'])
