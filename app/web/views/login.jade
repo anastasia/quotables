@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Log in
+  form.form-group(name='user', action='/login', method='post')
+    p
+      label(for='email') Email:
+        input.form-control(type='text', name='email' required='required')
+    p
+      label(for='password') Password:
+        input.form-control(type='password', name='password' required='required')
+
+    button(type='submit') Submit
+

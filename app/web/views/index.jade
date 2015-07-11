@@ -1,37 +1,7 @@
 extends layout
 
 block content
-  h1 Users
-  //- #users
-  //-   for user in users
-  //-     include user
-
-
-  //- body(ng-controller='QuoteController')
-    #leftColumn
-      h1 QUOTABLE
-
-      input#search(ng-model='searchQuotes', placeholder='search', type='search')
-      //- // save all tags into an object on firebase
-
-    #container
-      li(ng-repeat="quote in allQuotes | orderObjectBy:'quote.date':false | filter:searchQuotes")
-        #info
-          //- #quoteBody {{ quote.body }}
-
-          //- #quoteAuthor {{ quote.author }}
-
-          //- #quoteTitle {{ quote.title }}
-
-          //- #quoteDate {{ }}
-
-          span
-            a#quoteUrl(href='{{ quote.url }}', target='blank')
-            //- {{ quote.urlOrigin }}
-                 &middot;
-
-          span#quoteTags(ng-repeat='tag in quote.tags')
-            a#singleTag(href='/#/{{tag}}')
-            //- #{{tag}}
-
-    //- script(type='text/javascript', src='../quote/quote.list.ctrl.coffee')
+  h2 Hello #{user.email}
+  
+  form.form-group(name='user', action='/logout', method='get')
+    button(type='submit') Log Out

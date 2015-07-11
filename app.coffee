@@ -13,28 +13,41 @@ fibrous        = require 'fibrous'
 require './app/db/goose'
 
 User = require './app/db/models/user'
+auth = require './app/lib/auth'
 
-routes  = require './app/web/routes'
+# site specific routes
+routes  = require './app/server/routes'
+
+# general routes
 users   = require './app/api/users'
 quotes  = require './app/api/quotes'
 
 app = express()
 app.set 'port', process.env.PORT || 8000
 app.set('views', __dirname + '/app/web/views')
-app.use express.static __dirname + '/app/web/views'
 app.set 'view engine', 'jade'
-app.use bodyParser()
+
+app.use express.static __dirname + '/app/web'
+
+app.use bodyParser.urlencoded({ extended: false })
+app.use bodyParser.json()
+
 app.use logger('dev')
 app.use methodOverride()
 app.use session({
-  store: new MongoStore({url: 'mongodb://localhost/quotables', auto_reconnect: true}),
-  secret: 'very secret secret'
+  store             : new MongoStore({url: 'mongodb://localhost/quotables', autoReconnect: true}),
+  secret            : 'very secret secret'
+  resave            : false
+  saveUninitialized : false
 })
 
 passport.use new LocalStrategy(User.authenticate())
 passport.use User.createStrategy()
 passport.serializeUser User.serializeUser()
 passport.deserializeUser User.deserializeUser()
+
+app.use passport.initialize()
+app.use passport.session()
 
 app.use fibrous.middleware
 app.use (err, req, res, next) ->
@@ -43,13 +56,19 @@ app.use (err, req, res, next) ->
   else
     next()
 
-app.get  '/', (req, res) ->
-  res.render('index')
+app.get  '/', routes.renderSite
 
-app.get '/quotes/new',  quotes.new
-app.get '/quotes',      quotes.list
-app.post '/quotes/new', quotes.create
+app.get '/login',  (req, res) ->
+  res.render 'login'
 
+app.get  '/signup', routes.createAccount
+app.post '/signup', auth.ensureAuth, routes.renderSite
+app.post '/login',  passport.authenticate('local'), routes.login
+app.get  '/logout', routes.logout
+
+app.get  '/quotes/new',  quotes.new
+app.post '/quotes/new',  quotes.create
+app.get  '/quotes/list', quotes.list
 
 app.get  '/users/new',  users.new
 app.post '/users/new',  users.create
