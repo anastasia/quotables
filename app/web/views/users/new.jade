@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  body
+    h2 Create a new user:
+    form.form-group(name='user', action='/users/new', method='post')
+      p
+        label(for='email') Email:
+          input.form-control(type='text', name='email')
+      p
+        label(for='password') Password:
+          input.form-control(type='password', name='password')
+
+      button(type='submit') Submit
