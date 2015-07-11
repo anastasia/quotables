@@ -1,0 +1,18 @@
+html
+  body
+    h2 Create a new quote:
+    form.form-group(name='quote', action='/quotes/new', method='post')
+      p
+        label(for='title') Title:
+          input.form-control(type='text', name='title')
+      p
+        label(for='author') Author:
+          input.form-control(type='text', name='author')
+      p
+        label(for='body') Body:
+          input.form-control(type='text', name='body')
+      p
+        label(for='origin') url:
+          input.form-control(type='text', name='origin')
+
+      button(type='submit') Submit

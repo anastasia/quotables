@@ -1,38 +1,82 @@
-express   = require('express')
-app       = express()
+express        = require 'express'
+path           = require 'path'
+logger         = require 'morgan'
+methodOverride = require 'method-override'
+session        = require 'express-session'
+bodyParser     = require 'body-parser'
+errorHandler   = require 'errorhandler'
+passport       = require 'passport'
+LocalStrategy  = require('passport-local').Strategy
+MongoStore     = require('connect-mongo')(session)
+fibrous        = require 'fibrous'
+
+require './app/db/goose'
+
+User = require './app/db/models/user'
+auth = require './app/lib/auth'
+
+# site specific routes
+routes  = require './app/server/routes'
+
+# general routes
+users   = require './app/api/users'
+quotes  = require './app/api/quotes'
+
+app = express()
+app.set 'port', process.env.PORT || 8000
+app.set('views', __dirname + '/app/web/views')
+app.set 'view engine', 'jade'
+
+app.use express.static __dirname + '/app/web'
+
+app.use bodyParser.urlencoded({ extended: false })
+app.use bodyParser.json()
+
+app.use logger('dev')
+app.use methodOverride()
+app.use session({
+  store             : new MongoStore({url: 'mongodb://localhost/quotables', autoReconnect: true}),
+  secret            : 'very secret secret'
+  resave            : false
+  saveUninitialized : false
+})
+
+passport.use new LocalStrategy(User.authenticate())
+passport.use User.createStrategy()
+passport.serializeUser User.serializeUser()
+passport.deserializeUser User.deserializeUser()
+
+app.use passport.initialize()
+app.use passport.session()
+
+app.use fibrous.middleware
+app.use (err, req, res, next) ->
+  if err
+    res.json(500, {error:err.stack})
+  else
+    next()
+
+app.get  '/', routes.renderSite
+
+app.get '/login',  (req, res) ->
+  res.render 'login'
+
+app.get  '/signup', routes.createAccount
+app.post '/signup', auth.ensureAuth, routes.renderSite
+app.post '/login',  passport.authenticate('local'), routes.login
+app.get  '/logout', routes.logout
+
+app.get  '/quotes/new',  quotes.new
+app.post '/quotes/new',  quotes.create
+app.get  '/quotes/list', quotes.list
+
+app.get  '/users/new',  users.new
+app.post '/users/new',  users.create
+app.get  '/users/list', users.list
 
 
-app.use(express.static(__dirname + '/public'))
-# app.use(express.logger('dev'))
-# app.use(express.bodyParser())
-# app.use(express.methodOverride())
+app.get '/crash', (req, res) ->
+  res.status(500).send('purposeful crash')
 
-
-app.get '/', (req, res) ->
-  res.send(200)
-
-
-app.get '/quotes', (req, res) ->
- res.send(200,'quotes');
-
-
-app.post '/quotes', (req, res) ->
-  newQuote = new Quotable({
-    title: req.body.title
-    body: req.body.body
-    author: req.body.author
-    tags: req.body.tags
-  })
-
-  # // newQuote.save((err){
-  # //   if(err) throw err;
-  # // } (){
-  res.send 200
-
-app.get '*', (req, res) ->
-  res.send 'what'
-  # // res.sendfile('./public/popup.html')
-
-
-app.listen(8080)
-console.log('App listening, port 8080')
+app.listen app.get('port'), ->
+  console.log 'listening on port ' + app.get('port')
