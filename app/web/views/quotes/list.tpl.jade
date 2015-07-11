@@ -1,4 +1,7 @@
 extends ../layout
 block content
-  h1 Quotes
-  div(ng-controller="SomeCtrl") app is working. hello there!!!
+  h1 list
+  .quote-list(ng-controller="ListCtrl as list")
+    .single-quote(ng-repeat="quote in list.quotes")
+      .content {{ quote.content.body }}
+    
