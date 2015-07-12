@@ -1,8 +1,8 @@
-mongoose            = require 'mongoose'
-Schema              = mongoose.Schema
+mongoose   = require 'mongoose'
+Schema     = mongoose.Schema
 
 Tag = new Schema({
-  name:
+  value:
     type: String
 })
 

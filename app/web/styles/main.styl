@@ -1,7 +1,42 @@
-.quote-list
+$fontMain       = "BrandonText-Medium"
+$swatchMain     = #85DEFF
+$fontColorMain  = #646464
+
+
+.main-header
+  width            : 172px
+  height           : 172px
+  font-family      : "BrandonGrotesque-Medium"
+  font-size        : 120px
+  color            : white
+  background-color : $swatchMain
+
+  .content
+    padding : 10px
+    margin  : 0 auto
+
+.quote-list-container
+  max-width       : 72%
+  display         : flex
+  flex-direction  : row
+  flex-wrap       : wrap
+  justify-content : flex-end
   .single-quote
-    width    : 500px
-    height   : 300px
-    border   : 2px solid gray
+    width            : 165px
+    height           : 212px
+    margin           : 5px
+    background-color : $swatchMain
+    font-family      : $fontMain
+    color            : $fontColorMain
+    font-size        : 14px
     .content
       overflow : hidden
+      height   : 100%
+      width    : 100%
+    .tags
+      width : 100%
+    .tag
+      padding          : 5px
+      background-color : #ededed
+      color            : gray
+      margin-right     : 3px

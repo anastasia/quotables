@@ -3,3 +3,4 @@ node_modules
 *.TODO
 npm-debug.log
 bower_components
+design

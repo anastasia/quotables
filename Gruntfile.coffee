@@ -3,7 +3,8 @@ watch_this = [
   '!./app/web/router.coffee',
   './app/web/**/*.coffee',
   './app/server/**/*.coffee',
-  './app/web/**/*.jade'
+  './app/web/**/*.jade',
+  './app/web/styles/**/*.styl'
 
 ]
 
@@ -38,6 +39,8 @@ module.exports = (grunt) ->
         src: [
           'bower_components/angular/angular.min.js'
           'bower_components/angular-ui-router/release/angular-ui-router.min.js'
+          'bower_components/restangular/src/restangular.js'
+          'bower_components/lodash/lodash.min.js'
         ]
         dest: "./app/web/dist/built.js"
       app:
