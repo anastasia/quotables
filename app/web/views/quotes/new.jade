@@ -3,9 +3,6 @@ html
     h2 Create a new quote:
     form.form-group(name='quote', action='/quotes/new', method='post')
       p
-        label(for='title') Title:
-          input.form-control(type='text', name='title')
-      p
         label(for='author') Author:
           input.form-control(type='text', name='author')
       p
@@ -14,5 +11,8 @@ html
       p
         label(for='origin') url:
           input.form-control(type='text', name='origin')
+      p
+        label(for='tags') tags
+          input.form-control(type='text', name='tags')
 
       button(type='submit') Submit

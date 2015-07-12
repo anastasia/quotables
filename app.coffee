@@ -13,6 +13,7 @@ fibrous        = require 'fibrous'
 require './app/db/goose'
 
 User = require './app/db/models/user'
+
 auth = require './app/lib/auth'
 
 # site specific routes
@@ -68,7 +69,7 @@ app.get  '/logout', routes.logout
 
 app.get  '/quotes/new',  quotes.new
 app.post '/quotes/new',  quotes.create
-app.get  '/quotes/list', quotes.list
+app.get  '/quotes',      quotes.list
 
 app.get  '/users/new',  users.new
 app.post '/users/new',  users.create
