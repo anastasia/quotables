@@ -1,2 +1,7 @@
-.tags(ng-controller="TagsCtrl as tagsctrl")
-  span.tag(ng-repeat="tag in tagsctrl.tags") {{ tag }}
+.tags-list-container(ng-controller="TagsCtrl as tagsctrl")
+  .tags-header TAGS
+  .tag(
+    ng-repeat="tag in tagsctrl.allTags track by $index"
+    ng-click="tagsctrl.updateWithTag(tag)"
+    ng-class="{'selected':tagsctrl.tagSelected(tag)}") 
+    a {{ tag }}

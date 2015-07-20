@@ -3,11 +3,15 @@ angular.module("app")
   quoteApi = Restangular.all('quotes')
 
   obj =
+    quotes: []
     getQuotes: ->
       quoteApi
         .getList()
         .then (quotes) =>
-          @quotes = quotes
+
+          for quote in quotes
+            quote.tagsArray = _.pluck(quote.tags, "value")
+            @quotes.push quote
           return
 
     populateTags: ->
@@ -17,6 +21,19 @@ angular.module("app")
       uniqueTags[tag.value] = true for tag in tags
       @tags = Object.keys uniqueTags
       return
+
+    filterQuotesByTags: (tags) ->
+      return @quotes if !tags
+      filteredQuotes = []
+      for quote in @quotes
+        quotePushed = false
+        for tag in tags
+          continue if quotePushed
+          if _.indexOf(quote.tagsArray, tag) > -1 && !quotePushed
+            filteredQuotes.push quote
+            quotePushed = true
+      return filteredQuotes
+
 
     # createQuote: ->
 
