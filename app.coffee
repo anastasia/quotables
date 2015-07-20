@@ -13,6 +13,7 @@ fibrous        = require 'fibrous'
 require './app/db/goose'
 
 User = require './app/db/models/user'
+
 auth = require './app/lib/auth'
 
 # site specific routes
@@ -58,22 +59,20 @@ app.use (err, req, res, next) ->
 
 app.get  '/', routes.renderSite
 
-app.get '/login',  (req, res) ->
-  res.render 'login'
-
 app.get  '/signup', routes.createAccount
 app.post '/signup', auth.ensureAuth, routes.renderSite
 app.post '/login',  passport.authenticate('local'), routes.login
 app.get  '/logout', routes.logout
 
-app.get  '/quotes/new',  quotes.new
-app.post '/quotes/new',  quotes.create
-app.get  '/quotes/list', quotes.list
+app.get  '/quotes/new',  auth.ensureAuth, quotes.new
+app.post '/quotes/new',  auth.ensureAuth, quotes.create
+app.get  '/quotes',      auth.ensureAuth, quotes.list
 
 app.get  '/users/new',  users.new
 app.post '/users/new',  users.create
 app.get  '/users/list', users.list
 
+app.get '/loggedin', routes.isloggedin
 
 app.get '/crash', (req, res) ->
   res.status(500).send('purposeful crash')

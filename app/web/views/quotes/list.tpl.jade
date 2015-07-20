@@ -1,4 +1,6 @@
-extends ../layout
-block content
-  h1 Quotes
-  div(ng-controller="SomeCtrl") app is working. hello there!!!
+.quote-list-container(ng-controller="QuotesCtrl as qc")
+  
+  .single-quote(
+    ng-repeat="quote in qc.quotes track by $index")
+    .content {{ quote.content.body }}
+    

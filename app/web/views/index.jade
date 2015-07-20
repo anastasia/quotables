@@ -1,7 +1,5 @@
 extends layout
 
 block content
-  h2 Hello #{user.email}
-  
-  form.form-group(name='user', action='/logout', method='get')
+  form.form-group(name='user', action='/logout', method='POST')
     button(type='submit') Log Out
