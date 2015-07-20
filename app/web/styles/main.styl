@@ -15,6 +15,7 @@ $fontColorMain  = #646464
     padding : 10px
     margin  : 0 auto
 
+// QUOTES
 .quote-list-container
   max-width       : 72%
   display         : flex
@@ -40,3 +41,19 @@ $fontColorMain  = #646464
       background-color : #ededed
       color            : gray
       margin-right     : 3px
+// TAGS
+.tags-list-container
+  width       : 100px
+  font-family : "BrandonText-Medium"
+  font-size   : 12px
+  color       : $fontColorMain
+  .tags-header
+    font-family: "BrandonText-Bold"
+  .tag
+    padding: 5px
+    cursor : pointer
+    background-color: #ededed
+    a:hover
+      color: blue
+    &.selected
+      background-color: blue
