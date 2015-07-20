@@ -3,10 +3,8 @@ fibrous  = require 'fibrous'
 
 exports.ensureAuth = (req, res, next) ->
   user = req.user
-  console.log 'ensureAuth req.user?',req.body, req.user
   unless user
-    console.log 'redirecting to login'
-    return res.redirect '/login'
+    res.send null
 
   if req.isAuthenticated()
     req.logIn user, (err) ->
