@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1 Log in
+  form(ng-controller="LoginCtrl as ctrl")
+    p
+      label(for='email') Email:
+      input.form-control(
+        type='text'
+        name='email'
+        ng-model='ctrl.user.email'
+        required='required')
+    p
+      label(for='password') Password:
+      input.form-control(
+        type='password'
+        name='password'
+        ng-model='ctrl.user.password'
+        required='required')
+
+    button(ng-click="ctrl.login()") Submit

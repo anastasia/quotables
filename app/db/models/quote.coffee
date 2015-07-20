@@ -17,7 +17,7 @@ Quote = new Schema({
     type: String
   tags: [{
     type: Schema.Types.ObjectId
-    ref: 'Tags'
+    ref: 'Tag'
     set: ignoreEmpty
   }]
 })
