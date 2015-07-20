@@ -1,5 +1,3 @@
 angular.module("app")
-.controller "MainCtrl", (QuoteService) ->
-  console.log "MainCtrl"
-  @quotes = QuoteService.quotes
+.controller "MainCtrl", ($stateParams, QuoteService) ->
   return
