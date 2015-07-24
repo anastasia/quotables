@@ -1,5 +1,10 @@
 extends ../views/layout
 block content
-  div
-    div(ui-view="quotes")
-    div(ui-view="tags")
+  .home-content
+    .sidebar
+      .logo
+      .account-btn
+      div(ui-view="tags")
+    .main-view    
+      q-navbar
+      div(ui-view="quotes")
