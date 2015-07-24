@@ -30,6 +30,7 @@ angular.module('app', [
             .then ->
               QuoteService
                 .populateTags()
+
     .state 'login',
       url : '/login'
       templateUrl: 'login.tpl.jade'

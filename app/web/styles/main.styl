@@ -3,10 +3,12 @@ $swatchMain     = #8cd7f7
 $fontColorMain  = #646464
 
 // reset
-input
-  border : none
-  box-shadow       : none
-  border-radius    : 0px
+button
+ cursor : pointer
+input, button
+  border        : none
+  box-shadow    : none
+  border-radius : 0px
 
   &:focus
     outline: none
@@ -51,19 +53,28 @@ input
   height : 60px
   background-color : $swatchMain
   input.searchbar
-    width            : 100%
+    width            : 80%
     height           : 100%
     font-size        : 35px
     font-family      : "BrandonText-Medium"
     background-color : $swatchMain
     color            : #fff
     padding-left     : 10px
-
+    border-right : 2px dotted white
 
   .add-quote-btn
-    float  : right
+    float      : right
     background : url("/assets/plus.png") no-repeat
-    background-size  : 40px 40px
+    width      : 40px
+    height     : 40px
+
+  .clear-btn
+    float      : right
+    background : url("/assets/delete-icon.png") no-repeat
+    width      : 40px
+    height     : 40px
+
+
 
 // QUOTES
 .quote-list-container
