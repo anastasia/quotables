@@ -1,6 +1,6 @@
 .quote-list-container(ng-controller="QuotesCtrl as qc")
   
   .single-quote(
-    ng-repeat="quote in qc.quotes track by $index")
+    ng-repeat="quote in qc.quotes | filter: qc.filterText")
     .content {{ quote.content.body }}
     

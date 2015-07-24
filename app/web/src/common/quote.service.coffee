@@ -22,7 +22,7 @@ angular.module("app")
       @tags = Object.keys uniqueTags
       return
 
-    filterQuotesByTags: (tags) ->
+    filterByTags: (tags) ->
       return @quotes if !tags
       filteredQuotes = []
       for quote in @quotes
@@ -32,51 +32,21 @@ angular.module("app")
           if _.indexOf(quote.tagsArray, tag) > -1 && !quotePushed
             filteredQuotes.push quote
             quotePushed = true
-      return filteredQuotes
+      filteredQuotes
 
+    filterText: ""
 
-    # createQuote: ->
-
-    #   quoteApi
-    #     .post()
-
-  #   #
-  #   quotes: [{
-  #       _id: 1
-  #       tags: ["einstein", "inspiration", "god"]
-  #       origin: "www.google.com"
-  #       content:
-  #         author: "einstein"
-  #         body:"Before God we are all equally wise - and equally foolish."
-  #
-  #     },
-  #     {
-  #       _id: 2
-  #       tags: ["agreement", "chat"]
-  #       content:
-  #         author: "Eldridge Cleaver"
-  #         body:"Too much agreement kills a chat."
-  #       },
-  #     {
-  #       _id: 3
-  #       tags: ["agreement", "chat"]
-  #       content:
-  #         author: "Eldridge Cleaver"
-  #         body:"My fake plants died because I did not pretend to water them."
-  #     },
-  #     {
-  #       _id: 4
-  #       tags: ["language", "english"]
-  #       content:
-  #         author: "Robert Benchley"
-  #         body:"Drawing on my fine command of the English language, I said nothing."
-  #       }
-  #     {
-  #       _id: 4
-  #       tags: ["fonts", "long", "example"]
-  #       content:
-  #         author: "random website"
-  #         body:"Underground Pro expands on the historical design by Edward Johnston, licensed exclusively to P22 from the London Transport Museum. The overall design of Underground Pro is kept as intended by Johnston and remains within his system of proportions. Additional OpenType features, such as Small Caps and Petite Caps, are included in all 6 weights. A Titling option that mimics London Transport signage is offered in the medium weight. "
-  #       }
-  #     ]
   return obj
+
+
+
+# console.log "filterByText", text
+# # for quote in @quotes
+# filteredQuotes = []
+#
+# return @quotes if !text
+# for quote in @quotes
+#   if quote.content.author.indexOf(text) > -1 || quote.content.title.indexOf(text) > -1 || quote.content.body.indexOf(text) > -1
+#     filteredQuotes.push quote
+#
+# filteredQuotes
