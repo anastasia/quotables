@@ -1,18 +1,22 @@
-$fontMain       = "BrandonText-Medium"
-$swatchMain     = #8cd7f7
-$fontColorMain  = #646464
+$swatchMain         = #8cd7f7
+$swatchNeutralDark  = #646464
+$swatchNeutralLight = #cecbc6
+
+$fontMain           = "BrandonText-Medium"
+$fontColorMain      = $swatchNeutralDark
 
 // reset
 button
  cursor : pointer
-input, button
+input, button, textarea
   border        : none
   box-shadow    : none
   border-radius : 0px
 
   &:focus
     outline: none
-
+body
+  font-family: $fontMain
 ::-webkit-input-placeholder
   color: #fff
 :-moz-placeholder
@@ -41,12 +45,35 @@ input, button
     width  : 20%
     height :100%
     float  : left
+    border-right : 2px dotted $swatchNeutralDark
   .main-view
-    width  : 80%
+    width  : 79%
     height :100%
     float  : right
 
-
+// NEWQUOTE
+.new-quote
+  width   : 94.2%
+  padding : 10px 20px
+  border  : 2px solid $swatchNeutralLight
+  .header
+    color : $swatchNeutralLight
+    font-family : "BrandonText-MediumItalic"
+    font-size : 12px
+  .field
+    padding-left: 10px
+    font-size        : 35px
+    color : $swatchNeutralDark
+    width: 100%
+    background-color : $swatchNeutralLight
+    margin-bottom: 10px
+  .field-small
+    height: 50px
+  .field-big
+    height 150px
+  .submit
+    width : 100%
+    height : 50px
 // NAVBAR
 .navbar
   width  : 100%
@@ -63,10 +90,23 @@ input, button
     border-right : 2px dotted white
 
   .add-quote-btn
-    float      : right
-    background : url("/assets/plus.png") no-repeat
-    width      : 40px
-    height     : 40px
+    float              : right
+    background         : url("/assets/plus.png") no-repeat
+    width              : 40px
+    height             : 40px
+    margin-top         : 8px
+    margin-right       : 10px
+    -webkit-transition : -webkit-transform .8s ease-in-out
+    -ms-transition     : -ms-transform .8s ease-in-out
+    transition         : transform .8s ease-in-out
+    &:hover
+      transform         :rotate(360deg)
+      -ms-transform     :rotate(360deg)
+      -webkit-transform :rotate(360deg)
+    &.clicked
+      transform         :rotate(-405deg)
+      -ms-transform     :rotate(-405deg)
+      -webkit-transform :rotate(-405deg)
 
   .clear-btn
     float      : right
@@ -78,7 +118,6 @@ input, button
 
 // QUOTES
 .quote-list-container
-  max-width       : 72%
   display         : flex
   flex-direction  : row
   flex-wrap       : wrap
@@ -91,6 +130,7 @@ input, button
     font-family      : $fontMain
     color            : $fontColorMain
     font-size        : 14px
+    padding : 13px
     .content
       overflow : hidden
       height   : 100%

@@ -3,7 +3,19 @@ angular.module("app")
   quoteApi = Restangular.all('quotes')
 
   obj =
+    filterText: ""
     quotes: []
+    createQuote: (obj) ->
+      quoteApi
+        .customPOST(obj, 'new')
+        .then =>
+          @getQuotes()
+        .then ->
+          return "success!"
+        .catch (e) ->
+          console.log "getting back error:", e
+
+
     getQuotes: ->
       quoteApi
         .getList()
@@ -24,6 +36,7 @@ angular.module("app")
 
     filterByTags: (tags) ->
       return @quotes if !tags
+      @filterText    = tags.join(', ')
       filteredQuotes = []
       for quote in @quotes
         quotePushed = false
@@ -34,19 +47,5 @@ angular.module("app")
             quotePushed = true
       filteredQuotes
 
-    filterText: ""
 
   return obj
-
-
-
-# console.log "filterByText", text
-# # for quote in @quotes
-# filteredQuotes = []
-#
-# return @quotes if !text
-# for quote in @quotes
-#   if quote.content.author.indexOf(text) > -1 || quote.content.title.indexOf(text) > -1 || quote.content.body.indexOf(text) > -1
-#     filteredQuotes.push quote
-#
-# filteredQuotes

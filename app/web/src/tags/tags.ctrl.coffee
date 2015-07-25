@@ -1,22 +1,29 @@
 angular.module('app')
-.controller "TagsCtrl", ($stateParams, $state, $scope, QuoteService) ->
+.controller "TagsCtrl", ($stateParams, $state, $scope, TagService, QuoteService) ->
   @allTags    = QuoteService.tags
-  @searchTags = if $stateParams.tags then $stateParams.tags.split ',' else []
+  TagService.selectedTags = if $stateParams.tags then $stateParams.tags.split ',' else []
+  @searchTags = TagService.selectedTags
   tagIndex    = null
 
+  $scope.$watch ->
+    return TagService.selectedTags
+  , =>
+    @searchTags = TagService.selectedTags
+
+
   @clearTags = ->
-    @searchTags = []
+    TagService.selectedTags = []
     $stateParams.tags = null
 
   @updateWithTag = (tag) ->
     selected = @tagSelected(tag)
 
-    if selected then @searchTags.splice(tagIndex,1) else @searchTags.push tag
-
+    if selected then TagService.selectedTags.splice(tagIndex,1) else TagService.selectedTags.push tag
     $state.current.reloadOnSearch = false
-    $state.transitionTo "home", { notify: false, location: "replace", reload:false, inherit:false, 'tags': @searchTags.join(',') }
+    $state.transitionTo "home", { notify: false, location: "replace", reload:false, inherit:false, 'tags': TagService.selectedTags.join(',') }
     $state.current.reloadOnSearch = undefined
 
+    QuoteService.filterText =  TagService.selectedTags.join(' ')
 
   @tagSelected = (tag) ->
     tagIndex = _.indexOf(@searchTags, tag)
