@@ -1,6 +1,14 @@
 div.navbar
   input.searchbar(
     type="text"
-    placeholder="SEARCH")
-  .navbar-divider
-  .add-quote-btn
+    ng-change="nav.filterByText()"
+    ng-model="nav.searchval"
+    ng-disabled="nav.addingQuote"
+    placeholder="{{nav.searchPlaceholder}}")
+  button.clear-btn(
+    ng-click="nav.clearSearch()"
+    ng-if="nav.searchval.length > 0")
+
+  button.add-quote-btn(
+    ng-class="{clicked:nav.addingQuote == true}"
+    ng-click="nav.toggleNewQuote()")

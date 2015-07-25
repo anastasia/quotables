@@ -2,9 +2,13 @@ angular.module("app")
 .controller "QuotesCtrl", ($scope, $stateParams, QuoteService) ->
   getQuotes = =>
     tags    = $stateParams.tags?.split(',')
-    @quotes = QuoteService.filterQuotesByTags(tags)
+    @quotes = QuoteService.filterByTags(tags)
+
   getQuotes()
 
   $scope.$on '$locationChangeSuccess', -> getQuotes()
-
+  $scope.$watch ->
+    return QuoteService.filterText
+  , =>
+    @filterText = QuoteService.filterText
   return
