@@ -1,0 +1,14 @@
+.new-quote(ng-if="newquote.shown == true")
+  form
+    .header author
+    input.author.field.field-small(ng-model="newquote.author")
+    .header content
+    textarea.content.field.field-big(ng-model="newquote.body")
+    .header origin
+    input.origin.field.field-small(ng-model="newquote.origin")
+    .header tags (separate by spaces)
+    input.tags.field.field-small(ng-model="newquote.tags")
+    input.submit(
+      ng-click="newquote.addQuote()"
+      type="button"
+      value="submit")

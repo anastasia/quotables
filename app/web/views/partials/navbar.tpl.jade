@@ -3,9 +3,12 @@ div.navbar
     type="text"
     ng-change="nav.filterByText()"
     ng-model="nav.searchval"
-    placeholder="SEARCH")
+    ng-disabled="nav.addingQuote"
+    placeholder="{{nav.searchPlaceholder}}")
   button.clear-btn(
-    ng-click="nav.searchval = null;nav.filterByText('')"
+    ng-click="nav.clearSearch()"
     ng-if="nav.searchval.length > 0")
 
-  button.add-quote-btn
+  button.add-quote-btn(
+    ng-class="{clicked:nav.addingQuote == true}"
+    ng-click="nav.toggleNewQuote()")

@@ -11,9 +11,10 @@ exports.list = (req, res) ->
 
 exports.create = (req, res) ->
   try
+    console.log req.body
     content =
-      author : req.body.author
-      body   : req.body.body
+      author : req.body.content.author
+      body   : req.body.content.body
 
     quote = new Quote {
       content : content
@@ -21,7 +22,7 @@ exports.create = (req, res) ->
       origin  : req.body.origin
     }
     # TODO: remove!
-    tags = ["fake", "test", "array", "tags"]
+    tags = req.body.tags
 
     for singleTag in tags
       tag = Tag.sync.findOne { value : singleTag }
