@@ -35,6 +35,10 @@ angular.module('app', [
       url : '/login'
       templateUrl: 'login.tpl.jade'
 
+    .state 'signup',
+      url : '/signup'
+      templateUrl: 'signup.tpl.jade'
+
 .run ($rootScope, GuardService) ->
   $rootScope.$on '$stateChangeStart', GuardService.stateChange
 
