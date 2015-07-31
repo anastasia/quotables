@@ -1,12 +1,20 @@
 mongoose  = require 'mongoose'
 Schema    = mongoose.Schema
+bcrypt   = require 'bcrypt'
 passportLocalMongoose = require 'passport-local-mongoose'
 
-User = new Schema({
+UserSchema = new Schema({
   email:
     type: String
 })
 
-User.plugin(passportLocalMongoose, {usernameField:'email'})
 
-module.exports = mongoose.model('User', User)
+UserSchema.methods.generateHash = (password) ->
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+
+UserSchema.methods.validPassword = (password) ->
+  return bcrypt.compareSync(password, this.pw)
+
+UserSchema.plugin(passportLocalMongoose, {usernameField:'email'})
+
+module.exports = mongoose.model('User', UserSchema)
