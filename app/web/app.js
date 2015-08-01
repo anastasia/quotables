@@ -1,23 +1,33 @@
-angular.module('templates-app', ['home.tpl.jade', 'login.tpl.jade', 'partials/navbar.tpl.jade', 'quotes/list.tpl.jade', 'tags/list.tpl.jade']);
+angular.module('templates-app', ['home.tpl.jade', 'login.tpl.jade', 'partials/navbar.tpl.jade', 'partials/new.quote.tpl.jade', 'quotes/list.tpl.jade', 'signup.tpl.jade', 'tags/list.tpl.jade']);
 
 angular.module("home.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("home.tpl.jade",
-    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><head><title>Quotables</title><div class=\"main-header\"><content>Q</content></div></head><body ui-view=\"\"><div class=\"home-content\"><div class=\"sidebar\"><div class=\"logo\"></div><div class=\"account-btn\"></div><div ui-view=\"tags\"></div></div><div class=\"main-view\">   <q-navbar></q-navbar><div ui-view=\"quotes\"></div></div></div></body></html>");
+    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div class=\"home-content\"><div class=\"sidebar\"><div class=\"logo\"></div><div class=\"account-btn\"></div><div ui-view=\"tags\"></div></div><div class=\"main-view\">   <q-navbar></q-navbar><q-new-quote></q-new-quote><div ui-view=\"quotes\"></div></div></div></body></html>");
 }]);
 
 angular.module("login.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("login.tpl.jade",
-    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><head><title>Quotables</title><div class=\"main-header\"><content>Q</content></div></head><body ui-view=\"\"><h1>Log in</h1><form ng-controller=\"LoginCtrl as ctrl\"><p><label for=\"email\">Email:</label><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\" class=\"form-control\"></p><p><label for=\"password\">Password:</label><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\" class=\"form-control\"></p><button ng-click=\"ctrl.login()\">Submit</button></form></body></html>");
+    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div ng-controller=\"LoginCtrl as ctrl\" class=\"login-page\"><h1>Log in</h1><form><p><label for=\"email\">Email:</label><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\" class=\"form-control\"></p><p><label for=\"password\">Password:</label><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\" class=\"form-control\"></p><button ng-click=\"ctrl.login()\">Submit</button></form><button ng-click=\"ctrl.goToSignupPage()\">Sign up</button></div></body></html>");
 }]);
 
 angular.module("partials/navbar.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("partials/navbar.tpl.jade",
-    "<div class=\"navbar\"><input type=\"text\" placeholder=\"SEARCH\" class=\"searchbar\"><div class=\"navbar-divider\"></div><div class=\"add-quote-btn\"></div></div>");
+    "<div class=\"navbar\"><input type=\"text\" ng-change=\"nav.filterByText()\" ng-model=\"nav.searchval\" ng-disabled=\"nav.addingQuote\" placeholder=\"{{nav.searchPlaceholder}}\" class=\"searchbar\"><button ng-click=\"nav.clearSearch()\" ng-if=\"nav.searchval.length &gt; 0\" class=\"clear-btn\"></button><button ng-class=\"{clicked:nav.addingQuote == true}\" ng-click=\"nav.toggleNewQuote()\" class=\"add-quote-btn\"></button></div>");
+}]);
+
+angular.module("partials/new.quote.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("partials/new.quote.tpl.jade",
+    "<div ng-if=\"newquote.shown == true\" class=\"new-quote\"><form><div class=\"header\">author</div><input ng-model=\"newquote.author\" class=\"author field field-small\"><div class=\"header\">content</div><textarea ng-model=\"newquote.body\" class=\"content field field-big\"></textarea><div class=\"header\">origin</div><input ng-model=\"newquote.origin\" class=\"origin field field-small\"><div class=\"header\">tags (separate by spaces)</div><input ng-model=\"newquote.tags\" class=\"tags field field-small\"><input ng-click=\"newquote.addQuote()\" type=\"button\" value=\"submit\" class=\"submit\"></form></div>");
 }]);
 
 angular.module("quotes/list.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("quotes/list.tpl.jade",
-    "<div ng-controller=\"QuotesCtrl as qc\" class=\"quote-list-container\"><div ng-repeat=\"quote in qc.quotes track by $index\" class=\"single-quote\"><div class=\"content\">{{ quote.content.body }}</div></div></div>");
+    "<div ng-controller=\"QuotesCtrl as qc\" class=\"quote-list-container\"><div ng-click=\"qc.viewQuote(quote._id)\" ng-repeat=\"quote in qc.quotes | filter: qc.filterText\" ng-class=\"{'in-focus':qc.quoteViewed == quote._id}\" class=\"single-quote\"><div class=\"content\">{{ quote.content.body }}</div></div></div>");
+}]);
+
+angular.module("signup.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("signup.tpl.jade",
+    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div ng-controller=\"SignupCtrl as ctrl\" class=\"signup-page\"><h1>Sign Up</h1><form class=\"form-group\"><br><label for=\"email\">Email:</label><br><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\"><br><label for=\"password\">Password:</label><br><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\"><br><label for=\"password\">Confirm password:</label><br><input type=\"password\" name=\"password\"><br><button ng-click=\"ctrl.sendConfirmationEmail()\">Send a confirmation email</button></form><button ng-click=\"ctrl.goToLoginPage()\">Log in</button></div></body></html>");
 }]);
 
 angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templateCache) {
@@ -59,6 +69,9 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
     }).state('login', {
       url: '/login',
       templateUrl: 'login.tpl.jade'
+    }).state('signup', {
+      url: '/signup',
+      templateUrl: 'signup.tpl.jade'
     });
   }).run(function($rootScope, GuardService) {
     return $rootScope.$on('$stateChangeStart', GuardService.stateChange);
@@ -141,8 +154,73 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
   angular.module("app").directive("qNavbar", function() {
     return {
       templateUrl: 'partials/navbar.tpl.jade',
-      controller: function() {
-        return console.log("qNavbar");
+      controllerAs: 'nav',
+      controller: function($scope, QuoteService, $stateParams, TagService) {
+        this.searchval = '';
+        this.searchPlaceholder = "SEARCH";
+        this.clearSearch = function() {
+          this.searchval = '';
+          TagService.selectedTags = [];
+          return this.filterByText('');
+        };
+        $scope.$watch(function() {
+          return QuoteService.filterText;
+        }, (function(_this) {
+          return function() {
+            return _this.searchval = QuoteService.filterText;
+          };
+        })(this));
+        $scope.$watch(function() {
+          return TagService.selectedTags;
+        }, (function(_this) {
+          return function() {
+            return _this.searchval = _this.searchval + TagService.selectedTags.join(' ');
+          };
+        })(this));
+        this.filterByText = function() {
+          return QuoteService.filterText = this.searchval;
+        };
+        this.toggleNewQuote = function() {
+          this.addingQuote = !this.addingQuote;
+          this.searchPlaceholder = this.addingQuote ? "ADD A QUOTE" : "SEARCH";
+          return QuoteService.addingQuote = this.addingQuote;
+        };
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module("app").directive("qNewQuote", function() {
+    return {
+      templateUrl: 'partials/new.quote.tpl.jade',
+      controllerAs: 'newquote',
+      controller: function($scope, QuoteService, TagService) {
+        this.shown = null;
+        this.addQuote = function() {
+          var obj;
+          obj = {};
+          obj.content = {};
+          obj.content['body'] = this.body;
+          obj.content['author'] = this.author;
+          obj.origin = this.origin;
+          obj.tags = this.tags.split(' ');
+          console.log(obj);
+          return QuoteService.createQuote(obj).then(function() {
+            return console.log("success!");
+          })["catch"](function(e) {
+            return console.log("error!", e);
+          });
+        };
+        console.log("qNewQuote", this.shown);
+        $scope.$watch(function() {
+          return QuoteService.addingQuote;
+        }, (function(_this) {
+          return function() {
+            return _this.shown = QuoteService.addingQuote;
+          };
+        })(this));
       }
     };
   });
@@ -154,7 +232,19 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
     var obj, quoteApi;
     quoteApi = Restangular.all('quotes');
     obj = {
+      filterText: "",
       quotes: [],
+      createQuote: function(obj) {
+        return quoteApi.customPOST(obj, 'new').then((function(_this) {
+          return function() {
+            return _this.getQuotes();
+          };
+        })(this)).then(function() {
+          return "success!";
+        })["catch"](function(e) {
+          return console.log("getting back error:", e);
+        });
+      },
       getQuotes: function() {
         return quoteApi.getList().then((function(_this) {
           return function(quotes) {
@@ -182,11 +272,12 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
         }
         this.tags = Object.keys(uniqueTags);
       },
-      filterQuotesByTags: function(tags) {
+      filterByTags: function(tags) {
         var filteredQuotes, i, j, len, len1, quote, quotePushed, ref, tag;
         if (!tags) {
           return this.quotes;
         }
+        this.filterText = tags.join(', ');
         filteredQuotes = [];
         ref = this.quotes;
         for (i = 0, len = ref.length; i < len; i++) {
@@ -212,6 +303,17 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
 }).call(this);
 
 (function() {
+  angular.module("app").service("TagService", function() {
+    var obj;
+    obj = {
+      slectedTags: []
+    };
+    return obj;
+  });
+
+}).call(this);
+
+(function() {
   angular.module("app").controller("LoginCtrl", function($state, AuthService) {
     console.log("LOGINCTRL", AuthService);
     this.user = {
@@ -225,6 +327,10 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
       })["catch"](function() {
         return $state.go('login');
       });
+    };
+    this.goToSignupPage = function() {
+      console.log("goToSignupPage");
+      return $state.go('signup');
     };
   });
 
@@ -242,34 +348,104 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
       return function() {
         var ref, tags;
         tags = (ref = $stateParams.tags) != null ? ref.split(',') : void 0;
-        return _this.quotes = QuoteService.filterQuotesByTags(tags);
+        return _this.quotes = QuoteService.filterByTags(tags);
       };
     })(this);
     getQuotes();
     $scope.$on('$locationChangeSuccess', function() {
       return getQuotes();
     });
+    $scope.$watch(function() {
+      return QuoteService.filterText;
+    }, (function(_this) {
+      return function() {
+        return _this.filterText = QuoteService.filterText;
+      };
+    })(this));
+    this.viewQuote = function(id) {
+      return this.quoteViewed = id;
+    };
   });
 
 }).call(this);
 
 (function() {
-  angular.module('app').controller("TagsCtrl", function($stateParams, $state, $scope, QuoteService) {
+  angular.module("app").controller("SignupCtrl", function($state, AuthService, $http) {
+    var generateHash, superSecretHash;
+    generateHash = function() {
+      var uuid;
+      uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r, v;
+        r = Math.random() * 16 | 0;
+        v = c === 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+      });
+      return uuid;
+    };
+    superSecretHash = generateHash();
+    this.user = {
+      email: null,
+      password: null,
+      verified: false,
+      supersecrethash: superSecretHash
+    };
+    this.goToLoginPage = function() {
+      return $state.go('login');
+    };
+    this.signupUser = function() {
+      var hash;
+      hash = generateHash();
+      return $http.post('/users/new', this.user).success(function(user) {
+        console.log("user created!");
+        return user;
+      }).error(function(e) {
+        return console.log("error creating user");
+      });
+    };
+    this.sendConfirmationEmail = function() {
+      return this.signupUser().then(function(obj) {
+        var user;
+        console.log("front end, signupUser", obj.data.user);
+        user = obj.data.user;
+        return $http.post('/email-verification', {
+          supersecrethash: user.supersecrethash,
+          email: user.email
+        }).success(function(data) {
+          return console.log("sendConfirmationEmail : getting back somehting?", data);
+        }).error(function(e) {
+          return console.log("sendConfirmationEmail error", e);
+        });
+      });
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('app').controller("TagsCtrl", function($stateParams, $state, $scope, TagService, QuoteService) {
     var tagIndex;
     this.allTags = QuoteService.tags;
-    this.searchTags = $stateParams.tags ? $stateParams.tags.split(',') : [];
+    TagService.selectedTags = $stateParams.tags ? $stateParams.tags.split(',') : [];
+    this.searchTags = TagService.selectedTags;
     tagIndex = null;
+    $scope.$watch(function() {
+      return TagService.selectedTags;
+    }, (function(_this) {
+      return function() {
+        return _this.searchTags = TagService.selectedTags;
+      };
+    })(this));
     this.clearTags = function() {
-      this.searchTags = [];
+      TagService.selectedTags = [];
       return $stateParams.tags = null;
     };
     this.updateWithTag = function(tag) {
       var selected;
       selected = this.tagSelected(tag);
       if (selected) {
-        this.searchTags.splice(tagIndex, 1);
+        TagService.selectedTags.splice(tagIndex, 1);
       } else {
-        this.searchTags.push(tag);
+        TagService.selectedTags.push(tag);
       }
       $state.current.reloadOnSearch = false;
       $state.transitionTo("home", {
@@ -277,9 +453,10 @@ angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templa
         location: "replace",
         reload: false,
         inherit: false,
-        'tags': this.searchTags.join(',')
+        'tags': TagService.selectedTags.join(',')
       });
-      return $state.current.reloadOnSearch = void 0;
+      $state.current.reloadOnSearch = void 0;
+      return QuoteService.filterText = TagService.selectedTags.join(' ');
     };
     this.tagSelected = function(tag) {
       tagIndex = _.indexOf(this.searchTags, tag);
