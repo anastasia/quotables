@@ -12,4 +12,7 @@ angular.module("app")
         $state.go 'home'
       .catch ->
         $state.go 'login'
+  @goToSignupPage = ->
+    console.log "goToSignupPage"
+    $state.go 'signup'
   return

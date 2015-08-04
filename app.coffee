@@ -1,5 +1,6 @@
 express        = require 'express'
 path           = require 'path'
+keys           = require './keys'
 logger         = require 'morgan'
 methodOverride = require 'method-override'
 session        = require 'express-session'
@@ -10,11 +11,12 @@ LocalStrategy  = require('passport-local').Strategy
 MongoStore     = require('connect-mongo')(session)
 fibrous        = require 'fibrous'
 
+email          = require './app/lib/email'
+
 require './app/db/goose'
 
-User = require './app/db/models/user'
-
-auth = require './app/lib/auth'
+User      = require './app/db/models/user'
+auth      = require './app/lib/auth'
 
 # site specific routes
 routes  = require './app/server/routes'
@@ -57,9 +59,10 @@ app.use (err, req, res, next) ->
   else
     next()
 
+
 app.get  '/', routes.renderSite
 
-app.get  '/signup', routes.createAccount
+# app.get  '/signup', routes.createAccount
 app.post '/signup', auth.ensureAuth, routes.renderSite
 app.post '/login',  passport.authenticate('local'), routes.login
 app.get  '/logout', routes.logout
@@ -74,8 +77,12 @@ app.get  '/users/list', users.list
 
 app.get '/loggedin', routes.isloggedin
 
+app.post '/email-verification', email.sendVerificationEmail
+app.get '/email-verification/:email/:hash',  email.getVerifiedEmail
+
 app.get '/crash', (req, res) ->
   res.status(500).send('purposeful crash')
+
 
 app.listen app.get('port'), ->
   console.log 'listening on port ' + app.get('port')

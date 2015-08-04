@@ -2,11 +2,15 @@ mongoose  = require 'mongoose'
 Schema    = mongoose.Schema
 passportLocalMongoose = require 'passport-local-mongoose'
 
-User = new Schema({
+UserSchema = new Schema({
   email:
+    type: String
+  verified:
+    type: Boolean
+  supersecrethash:
     type: String
 })
 
-User.plugin(passportLocalMongoose, {usernameField:'email'})
+UserSchema.plugin(passportLocalMongoose, {usernameField:'email'})
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('User', UserSchema)
