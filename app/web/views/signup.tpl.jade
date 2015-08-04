@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .signup-page(ng-controller="SignupCtrl as ctrl")
+    h1 Sign Up
+    form.form-group
+      br
+      label(for='email') Email:
+      br
+      input(
+        type='text'
+        name='email'
+        ng-model='ctrl.user.email'
+        required='required')
+      br
+      label(for='password') Password:
+      br
+      input(
+        type='password'
+        name='password'
+        ng-model='ctrl.user.password'
+        required='required')
+      br
+      label(for='password') Confirm password:
+      br
+      input(type='password', name='password')
+      br
+      button(ng-click="ctrl.sendConfirmationEmail()") Send a confirmation email
+      
+    button(ng-click="ctrl.goToLoginPage()") Log in

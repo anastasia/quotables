@@ -1,3 +1,4 @@
+// $swatchMain         = #c6ffff
 $swatchMain         = #8cd7f7
 $swatchNeutralDark  = #646464
 $swatchNeutralLight = #cecbc6
@@ -123,7 +124,7 @@ body
   flex-wrap       : wrap
   justify-content : flex-end
   .single-quote
-    width            : 165px
+    width            : 28%
     height           : 212px
     margin           : 5px
     background-color : $swatchMain
@@ -142,6 +143,10 @@ body
       background-color : #ededed
       color            : gray
       margin-right     : 3px
+    &.in-focus
+      width : 100%
+      font-size : 20px
+      background-color : red
 
 // TAGS
 .tags-list-container
@@ -159,3 +164,7 @@ body
       color: blue
     &.selected
       background-color: blue
+
+
+
+@import 'login'
