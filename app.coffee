@@ -83,6 +83,7 @@ app.get '/email-verification/:email/:hash',  email.getVerifiedEmail
 app.get '/crash', (req, res) ->
   res.status(500).send('purposeful crash')
 
+app.get '/session', routes.getUser
 
 app.listen app.get('port'), ->
   console.log 'listening on port ' + app.get('port')
