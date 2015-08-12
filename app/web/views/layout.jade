@@ -1,6 +1,9 @@
 html(ng-app="app")
+
   script(src="dist/built.js")
   script(src="app.js")
+  link(rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
   link(type="text/css" rel="stylesheet" href="styles.css")
   body(ui-view="")
     block content

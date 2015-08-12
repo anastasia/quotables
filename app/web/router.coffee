@@ -2,6 +2,7 @@ angular.module('app', [
   'ui.router'
   'templates-app'
   'restangular'
+  'ui.bootstrap'
 ])
 .config ($stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.otherwise ($injector, $location) ->

@@ -1,7 +1,7 @@
 .quote-list-container(ng-controller="QuotesCtrl as qc")
   
   .single-quote(
-    ng-click="qc.viewQuote(quote._id)"
+    ng-click="qc.viewQuote(quote)"
     ng-repeat="quote in qc.quotes | filter: qc.filterText"
     ng-class="{'in-focus':qc.quoteViewed == quote._id}")
     .content {{ quote.content.body }}

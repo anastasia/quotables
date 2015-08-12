@@ -1,5 +1,5 @@
 angular.module("app")
-.controller "QuotesCtrl", ($scope, $stateParams, QuoteService) ->
+.controller "QuotesCtrl", ($scope, $stateParams, QuoteService, $modal) ->
   getQuotes = =>
     tags    = $stateParams.tags?.split(',')
     @quotes = QuoteService.filterByTags(tags)
@@ -12,7 +12,36 @@ angular.module("app")
   , =>
     @filterText = QuoteService.filterText
 
-  @viewQuote = (id) ->
-    @quoteViewed = if @quoteViewed == id then null else id
+  @viewQuote = (quote) ->
+    QuoteService.selectedQuote = quote
+
+    modalInstance = $modal.open
+      animation: true
+      templateUrl: 'quotes/view.quote.tpl.jade'
+      controller: 'SingleQuoteCtrl'
+      size: 10,
+
+    modalInstance.result.then (selectedItem) ->
+      $scope.selected = selectedItem
+    , ->
+      console.log 'Modal dismissed at: ' + new Date()
+
+  return
+
+.controller 'SingleQuoteCtrl', ($scope, QuoteService) ->
+  @quote = QuoteService.selectedQuote
+
+
+  return
+
+
+
+
+
+
+
+
+
+
 
   return

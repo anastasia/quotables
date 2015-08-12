@@ -122,9 +122,11 @@ body
   display         : flex
   flex-direction  : row
   flex-wrap       : wrap
+  width           : 100%
   justify-content : flex-end
   .single-quote
-    width            : 28%
+    -webkit-flex     : 1
+    min-width        : 128px
     height           : 212px
     margin           : 5px
     background-color : $swatchMain
@@ -143,10 +145,7 @@ body
       background-color : #ededed
       color            : gray
       margin-right     : 3px
-    &.in-focus
-      width : 100%
-      font-size : 20px
-      background-color : red
+
 
 // TAGS
 .tags-list-container

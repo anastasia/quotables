@@ -5,6 +5,7 @@ angular.module("app")
   obj =
     filterText: ""
     quotes: []
+    selectedQuote: {}
     createQuote: (obj) ->
       quoteApi
         .customPOST(obj, 'new')
