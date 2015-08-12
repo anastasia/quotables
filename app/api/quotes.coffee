@@ -11,19 +11,17 @@ exports.list = (req, res) ->
 
 exports.create = (req, res) ->
   try
-    content =
-      author : req.body.author
-      body   : req.body.body
-      title  : req.body.title
-    user  = User.sync.findById { _id : req.body._id }
-    quote = new Quote {
-      content : content
-      user_id : user._id
+    quote = new Quote({
+      author  : req.body.author
+      body    : req.body.body
+      title   : req.body.title
+      user_id : req.user._id
       origin  : req.body.url
-    }
+    })
 
     tagString = req.body.tags
-    tagsArray = tagString?.split(/[\s,]+/);
+    tagsArray = tagString?.split(/[\s,]+/)
+
     for tagVal in tagsArray
       tag = Tag.sync.findOne { value : tagVal }
       tag = new Tag { value : tagVal } if !tag

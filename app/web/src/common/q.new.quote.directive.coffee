@@ -4,15 +4,14 @@ angular.module("app")
   controllerAs: 'newquote'
   controller: ($scope, QuoteService, TagService) ->
     @shown = null
-    # @shown = true
+
     @addQuote = ->
-      obj = {}
-      # obj.author  = @author
-      obj.content = {}
-      obj.content['body']   = @body
-      obj.content['author'] = @author
-      obj.origin = @origin
-      obj.tags   = @tags.split(' ')
+      obj =
+        body   : @body
+        author : @author
+        origin : @origin
+        title  : ""
+        tags   : @tags
 
       QuoteService
         .createQuote(obj)

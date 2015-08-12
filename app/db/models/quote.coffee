@@ -7,12 +7,12 @@ Quote = new Schema({
   user_id:
     type: Schema.Types.ObjectId
     ref: 'User'
-  content:
-    type: Object
-    default:
-      author: ""
-      title: ""
-      body: ""
+  author:
+    type: String
+  title:
+    type: String
+  body:
+    type: String
   origin:
     type: String
   tags: [{
