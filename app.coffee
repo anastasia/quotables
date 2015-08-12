@@ -68,8 +68,11 @@ app.post '/login',  passport.authenticate('local'), routes.login
 app.get  '/logout', routes.logout
 
 app.get  '/quotes/new',  auth.ensureAuth, quotes.new
+app.patch '/quotes/:id', auth.ensureAuth, quotes.update
 app.post '/quotes/new',  auth.ensureAuth, quotes.create
 app.get  '/quotes',      auth.ensureAuth, quotes.list
+
+
 
 app.get  '/users/new',  users.new
 app.post '/users/new',  users.create

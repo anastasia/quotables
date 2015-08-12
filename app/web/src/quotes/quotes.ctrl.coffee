@@ -30,8 +30,9 @@ angular.module("app")
 
 .controller 'SingleQuoteCtrl', ($scope, QuoteService) ->
   @quote = QuoteService.selectedQuote
-
-
+  @updateQuote = (field, update) ->
+    changes = {id: @quote._id, field:field, update:update}
+    QuoteService.updateQuote(changes)
   return
 
 

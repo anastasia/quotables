@@ -16,6 +16,10 @@ angular.module("app")
         .catch (e) ->
           console.log "getting back error:", e
 
+    updateQuote: (updates) ->
+      quoteApi
+        .one(updates.id)
+        .patch(updates)
 
     getQuotes: ->
       quoteApi

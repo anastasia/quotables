@@ -28,14 +28,17 @@ exports.create = (req, res) ->
 
       tag.sync.save()
       quote.tags.push tag._id
-
     quote.sync.save()
     res.status(200).send({status:"success!", quote:quote})
 
   catch error
-     res.status(500).send({error:error})
+    res.status(500).send({error:error})
 
 exports.update = (req, res) ->
+  quote = Quote.sync.findById req.body.id
+  quote[req.body.field] = req.body.update
+  quote.sync.save()
+  res.status(200).send({status:"success!"})
 
 exports.delete = (req, res) ->
 
