@@ -3,6 +3,7 @@ angular.module('app', [
   'templates-app'
   'restangular'
   'ui.bootstrap'
+  'xeditable'
 ])
 .config ($stateProvider, $urlRouterProvider) ->
   $urlRouterProvider.otherwise ($injector, $location) ->

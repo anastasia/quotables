@@ -43,6 +43,7 @@ module.exports = (grunt) ->
           'bower_components/angular-ui-router/release/angular-ui-router.min.js'
           'bower_components/restangular/src/restangular.js'
           'bower_components/lodash/lodash.min.js'
+          'bower_components/angular-xeditable/dist/js/xeditable.min.js'
         ]
         dest: "./app/web/dist/built.js"
       app:
