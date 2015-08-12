@@ -65,7 +65,6 @@ window.addEventListener('load', function(evt) {
       } else {
         window.location.href = "http://localhost:8000/login"
         console.log("error",xhr.responseText);
-        document.getElementById("signin")
       }
     }
   };
