@@ -13,7 +13,7 @@ angular.module("app")
       obj.content['author'] = @author
       obj.origin = @origin
       obj.tags   = @tags.split(' ')
-      console.log obj
+
       QuoteService
         .createQuote(obj)
         .then ->
@@ -22,7 +22,6 @@ angular.module("app")
           console.log "error!", e
 
 
-    console.log "qNewQuote", @shown
     $scope.$watch ->
       return QuoteService.addingQuote
     , =>
