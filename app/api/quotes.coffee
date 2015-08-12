@@ -1,7 +1,7 @@
 fibrous = require 'fibrous'
 Quote   = require '../db/models/quote'
 Tag     = require '../db/models/tag'
-
+User    = require '../db/models/user'
 exports.new  = (req, res) ->
   res.render "quotes/new"
 
@@ -11,31 +11,31 @@ exports.list = (req, res) ->
 
 exports.create = (req, res) ->
   try
-    console.log req.body
     content =
-      author : req.body.content.author
-      body   : req.body.content.body
-
+      author : req.body.author
+      body   : req.body.body
+      title  : req.body.title
+    user  = User.sync.findById { _id : req.body._id }
     quote = new Quote {
       content : content
-      user_id : req.user._id
-      origin  : req.body.origin
+      user_id : user._id
+      origin  : req.body.url
     }
-    # TODO: remove!
-    tags = req.body.tags
 
-    for singleTag in tags
-      tag = Tag.sync.findOne { value : singleTag }
-      tag = new Tag { value : singleTag } if !tag
+    tagString = req.body.tags
+    tagsArray = tagString?.split(/[\s,]+/);
+    for tagVal in tagsArray
+      tag = Tag.sync.findOne { value : tagVal }
+      tag = new Tag { value : tagVal } if !tag
 
       tag.sync.save()
       quote.tags.push tag._id
 
     quote.sync.save()
+    res.status(200).send({status:"success!", quote:quote})
 
   catch error
-    res.send 500, {error:error}
-  res.redirect '/'
+     res.status(500).send({error:error})
 
 exports.update = (req, res) ->
 

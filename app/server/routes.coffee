@@ -21,3 +21,7 @@ exports.isloggedin = (req, res) ->
     res.send 200, {user:req.user}
   else
     res.send 401, null
+
+exports.getUser = (req, res) ->
+  user = req.user
+  res.status(200).send(user)

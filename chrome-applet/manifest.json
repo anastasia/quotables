@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "q",
+  "description": "Save your favorite verses and quotes!",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "calculator-16.png",
+    "default_title": "q",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "tabs",
+    "http://localhost/*",
+    "http://*/*",
+    "https://*/*",
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [ {
+    "js": [ "getselection.js"],
+    "matches": [ "http://*/*", "https://*/*"]
+  }]
+}

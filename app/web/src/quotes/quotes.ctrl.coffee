@@ -11,8 +11,8 @@ angular.module("app")
     return QuoteService.filterText
   , =>
     @filterText = QuoteService.filterText
-  @viewQuote = (id) ->
-    @quoteViewed = id
 
-  
+  @viewQuote = (id) ->
+    @quoteViewed = if @quoteViewed == id then null else id
+
   return
