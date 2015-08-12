@@ -1,5 +1,5 @@
 (function() {
-  angular.module('app', ['ui.router', 'templates-app', 'restangular']).config(function($stateProvider, $urlRouterProvider) {
+  angular.module('app', ['ui.router', 'templates-app', 'restangular', 'ui.bootstrap', 'xeditable']).config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise(function($injector, $location) {
       var GuardService;
       GuardService = $injector.get('GuardService');
@@ -163,20 +163,19 @@
         this.shown = null;
         this.addQuote = function() {
           var obj;
-          obj = {};
-          obj.content = {};
-          obj.content['body'] = this.body;
-          obj.content['author'] = this.author;
-          obj.origin = this.origin;
-          obj.tags = this.tags.split(' ');
-          console.log(obj);
+          obj = {
+            body: this.body,
+            author: this.author,
+            origin: this.origin,
+            title: "",
+            tags: this.tags
+          };
           return QuoteService.createQuote(obj).then(function() {
             return console.log("success!");
           })["catch"](function(e) {
             return console.log("error!", e);
           });
         };
-        console.log("qNewQuote", this.shown);
         $scope.$watch(function() {
           return QuoteService.addingQuote;
         }, (function(_this) {
@@ -197,6 +196,7 @@
     obj = {
       filterText: "",
       quotes: [],
+      selectedQuote: {},
       createQuote: function(obj) {
         return quoteApi.customPOST(obj, 'new').then((function(_this) {
           return function() {
@@ -207,6 +207,9 @@
         })["catch"](function(e) {
           return console.log("getting back error:", e);
         });
+      },
+      updateQuote: function(updates) {
+        return quoteApi.one(updates.id).patch(updates);
       },
       getQuotes: function() {
         return quoteApi.getList().then((function(_this) {
@@ -305,7 +308,7 @@
 }).call(this);
 
 (function() {
-  angular.module("app").controller("QuotesCtrl", function($scope, $stateParams, QuoteService) {
+  angular.module("app").controller("QuotesCtrl", function($scope, $stateParams, QuoteService, $modal) {
     var getQuotes;
     getQuotes = (function(_this) {
       return function() {
@@ -325,9 +328,33 @@
         return _this.filterText = QuoteService.filterText;
       };
     })(this));
-    this.viewQuote = function(id) {
-      return this.quoteViewed = id;
+    this.viewQuote = function(quote) {
+      var modalInstance;
+      QuoteService.selectedQuote = quote;
+      modalInstance = $modal.open({
+        animation: true,
+        templateUrl: 'quotes/view.quote.tpl.jade',
+        controller: 'SingleQuoteCtrl',
+        size: 10
+      });
+      return modalInstance.result.then(function(selectedItem) {
+        return $scope.selected = selectedItem;
+      }, function() {
+        return console.log('Modal dismissed at: ' + new Date());
+      });
     };
+  }).controller('SingleQuoteCtrl', function($scope, QuoteService) {
+    this.quote = QuoteService.selectedQuote;
+    this.updateQuote = function(field, update) {
+      var changes;
+      changes = {
+        id: this.quote._id,
+        field: field,
+        update: update
+      };
+      return QuoteService.updateQuote(changes);
+    };
+    return;
   });
 
 }).call(this);

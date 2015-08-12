@@ -1,13 +1,13 @@
-angular.module('templates-app', ['home.tpl.jade', 'login.tpl.jade', 'partials/navbar.tpl.jade', 'partials/new.quote.tpl.jade', 'quotes/list.tpl.jade', 'signup.tpl.jade', 'tags/list.tpl.jade']);
+angular.module('templates-app', ['home.tpl.jade', 'login.tpl.jade', 'partials/navbar.tpl.jade', 'partials/new.quote.tpl.jade', 'quotes/list.tpl.jade', 'quotes/view.quote.tpl.jade', 'signup.tpl.jade', 'tags/list.tpl.jade']);
 
 angular.module("home.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("home.tpl.jade",
-    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div class=\"home-content\"><div class=\"sidebar\"><div class=\"logo\"></div><div class=\"account-btn\"></div><div ui-view=\"tags\"></div></div><div class=\"main-view\">   <q-navbar></q-navbar><q-new-quote></q-new-quote><div ui-view=\"quotes\"></div></div></div></body></html>");
+    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div class=\"home-content\"><div class=\"sidebar\"><div class=\"logo\"></div><div class=\"account-btn\"></div><div ui-view=\"tags\"></div></div><div class=\"main-view\">   <q-navbar></q-navbar><q-new-quote></q-new-quote><div ui-view=\"quotes\"></div></div></div></body></html>");
 }]);
 
 angular.module("login.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("login.tpl.jade",
-    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div ng-controller=\"LoginCtrl as ctrl\" class=\"login-page\"><h1>Log in</h1><form><p><label for=\"email\">Email:</label><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\" class=\"form-control\"></p><p><label for=\"password\">Password:</label><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\" class=\"form-control\"></p><button ng-click=\"ctrl.login()\">Submit</button></form><button ng-click=\"ctrl.goToSignupPage()\">Sign up</button></div></body></html>");
+    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div ng-controller=\"LoginCtrl as ctrl\" class=\"login-page\"><h1>Log in</h1><form><p><label for=\"email\">Email:</label><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\" class=\"form-control\"></p><p><label for=\"password\">Password:</label><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\" class=\"form-control\"></p><button ng-click=\"ctrl.login()\">Submit</button></form><button ng-click=\"ctrl.goToSignupPage()\">Sign up</button></div></body></html>");
 }]);
 
 angular.module("partials/navbar.tpl.jade", []).run(["$templateCache", function($templateCache) {
@@ -22,12 +22,17 @@ angular.module("partials/new.quote.tpl.jade", []).run(["$templateCache", functio
 
 angular.module("quotes/list.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("quotes/list.tpl.jade",
-    "<div ng-controller=\"QuotesCtrl as qc\" class=\"quote-list-container\"><div ng-click=\"qc.viewQuote(quote._id)\" ng-repeat=\"quote in qc.quotes | filter: qc.filterText\" ng-class=\"{'in-focus':qc.quoteViewed == quote._id}\" class=\"single-quote\"><div class=\"content\">{{ quote.content.body }}</div></div></div>");
+    "<div ng-controller=\"QuotesCtrl as qc\" class=\"quote-list-container\"><div ng-click=\"qc.viewQuote(quote)\" ng-repeat=\"quote in qc.quotes | filter: qc.filterText\" ng-class=\"{'in-focus':qc.quoteViewed == quote._id}\" class=\"single-quote\"><div class=\"content\">{{ quote.body }}</div></div></div>");
+}]);
+
+angular.module("quotes/view.quote.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("quotes/view.quote.tpl.jade",
+    "<div ng-controller=\"SingleQuoteCtrl as ctrl\" class=\"modal-container\"><div editable-text=\"ctrl.quote.body\" buttons=\"no\" blur=\"submit\" onbeforesave=\"ctrl.updateQuote('body', $data)\">{{ctrl.quote.body}}</div><div editable-text=\"ctrl.quote.author\" buttons=\"no\" blur=\"submit\" onbeforesave=\"ctrl.updateQuote('author', $data)\">{{ctrl.quote.author}}</div><div editable-text=\"ctrl.quote.origin\" buttons=\"no\" blur=\"submit\" onbeforesave=\"ctrl.updateQuote('origin', $data)\">{{ctrl.quote.origin}}</div></div>");
 }]);
 
 angular.module("signup.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("signup.tpl.jade",
-    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div ng-controller=\"SignupCtrl as ctrl\" class=\"signup-page\"><h1>Sign Up</h1><form class=\"form-group\"><br><label for=\"email\">Email:</label><br><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\"><br><label for=\"password\">Password:</label><br><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\"><br><label for=\"password\">Confirm password:</label><br><input type=\"password\" name=\"password\"><br><button ng-click=\"ctrl.sendConfirmationEmail()\">Send a confirmation email</button></form><button ng-click=\"ctrl.goToLoginPage()\">Log in</button></div></body></html>");
+    "<!DOCTYPE html><html ng-app=\"app\"><script src=\"dist/built.js\"></script><script src=\"app.js\"></script><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"><link type=\"text/css\" rel=\"stylesheet\" href=\"styles.css\"><body ui-view=\"\"><div ng-controller=\"SignupCtrl as ctrl\" class=\"signup-page\"><h1>Sign Up</h1><form class=\"form-group\"><br><label for=\"email\">Email:</label><br><input type=\"text\" name=\"email\" ng-model=\"ctrl.user.email\" required=\"required\"><br><label for=\"password\">Password:</label><br><input type=\"password\" name=\"password\" ng-model=\"ctrl.user.password\" required=\"required\"><br><label for=\"password\">Confirm password:</label><br><input type=\"password\" name=\"password\"><br><button ng-click=\"ctrl.sendConfirmationEmail()\">Send a confirmation email</button></form><button ng-click=\"ctrl.goToLoginPage()\">Log in</button></div></body></html>");
 }]);
 
 angular.module("tags/list.tpl.jade", []).run(["$templateCache", function($templateCache) {
