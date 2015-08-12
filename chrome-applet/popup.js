@@ -1,3 +1,4 @@
+var user = {}
 function onPageDetailsReceived(pageDetails)  {
     document.getElementById('title').value   = pageDetails.title;
     document.getElementById('url').value     = pageDetails.url;
@@ -23,8 +24,8 @@ function addBookmark() {
     var url     = encodeURIComponent(document.getElementById('url').value);
     var summary = encodeURIComponent(document.getElementById('summary').value);
     var tags    = getTagsArray(encodeURIComponent(document.getElementById('tags').value));
-
-    var params = 'title=' + title +
+    var params = '_id=' + user._id +
+                 '&title=' + title +
                  '&url=' + url +
                  '&body=' + summary +
                  '&tags=' + tags;
@@ -50,6 +51,28 @@ function addBookmark() {
 }
 
 window.addEventListener('load', function(evt) {
+  var getUrl = 'http://localhost:8000/session';
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', getUrl, true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      statusDisplay.innerHTML = '';
+      if (xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText)
+        user.email = response.email;
+        user._id  = response._id;
+      } else {
+        window.location.href = "http://localhost:8000/login"
+        console.log("error",xhr.responseText);
+        document.getElementById("signin")
+      }
+    }
+  };
+
+
+  xhr.send();
+
   statusDisplay = document.getElementById('status-display');
   document.getElementById('addbookmark').addEventListener('submit', addBookmark);
   chrome.runtime.getBackgroundPage(function(eventPage) {
