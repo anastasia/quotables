@@ -10,6 +10,13 @@
     "default_title": "q",
     "default_popup": "popup.html"
   },
+  "commands": {
+      "_execute_browser_action": {
+          "suggested_key": {
+            "default": "Alt+Q"
+          }
+        }
+  },
   "permissions": [
     "tabs",
     "http://localhost/*",
