@@ -59,9 +59,14 @@ window.addEventListener('load', function(evt) {
     if (xhr.readyState == 4) {
       statusDisplay.innerHTML = '';
       if (xhr.status == 200) {
-        var response = JSON.parse(xhr.responseText)
-        user.email = response.email;
-        user._id  = response._id;
+        if (xhr.responseText.length) {
+          var response = JSON.parse(xhr.responseText);
+          user.email = response.email;
+          user._id  = response._id;
+        } else {
+          document.getElementById('addbookmark').style.visibility = "hidden";
+          document.getElementById('notloggedin').style.visibility = "visible";
+        }
       } else {
         window.location.href = "http://localhost:8000/login"
         console.log("error",xhr.responseText);
