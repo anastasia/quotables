@@ -1,5 +1,5 @@
 angular.module("app")
-.controller "QuotesCtrl", ($scope, $stateParams, QuoteService, $modal) ->
+.controller "QuotesCtrl", ($scope, $stateParams, QuoteService, $modal, TagService) ->
   getQuotes = =>
     tags    = $stateParams.tags?.split(',')
     @quotes = QuoteService.filterByTags(tags)
@@ -26,7 +26,49 @@ angular.module("app")
     , ->
       console.log 'Modal dismissed at: ' + new Date()
 
+  @openDeleteModal = (quote) ->
+    modalInstance = $modal.open
+      animation: false
+      template: """
+        <div>DELETE</div>
+        <div>
+          <button class="btn btn-primary" ng-click="$scope.deleteQuote(quote)">
+           YES
+          </button>
+          <button class="btn btn-default">
+           NO
+          </button>
+      """
+      size: 10,
+
+    modalInstance.result.then (selectedItem) ->
+      console.log "selectedItem?", selectedItem
+      $scope.selected = selectedItem
+    , ->
+      console.log 'Modal dismissed at: ' + new Date()
+
+  $scope.deleteQuote = (quote) ->
+    console.log "getting delete quote?", quote
+
+
+  @getClass = (quote) ->
+    date = new Date quote.created_at
+    s = date.getTime()
+    return "five" if s % 6 == 0
+    return "one" if s % 7 == 0
+    return "three" if s % 3 == 0
+    return "four" if s % 5 == 0
+    return "two" if s % 2 == 0
+    return "five"
+
+
+
+
+
+
   return
+
+
 
 .controller 'SingleQuoteCtrl', ($scope, QuoteService) ->
   @quote = QuoteService.selectedQuote

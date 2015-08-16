@@ -17,6 +17,7 @@ exports.create = (req, res) ->
       title   : req.body.title
       user_id : req.user._id
       origin  : req.body.url
+      created_at : new Date()
     })
 
     tagString = req.body.tags

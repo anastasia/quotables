@@ -3,7 +3,14 @@ $swatchMain         = #8cd7f7
 $swatchNeutralDark  = #646464
 $swatchNeutralLight = #cecbc6
 
-$fontMain           = "BrandonText-Medium"
+$swatchGreen      = #18a288
+$swatchYellow     = #f4faa2
+$swatchRed        = #fc6b3a
+$swatchGreenLight = #c4eea3
+$swatchGray       = #b4b4a6
+
+$fontMain           = 'Asap'
+$fontSerif          = 'Playfair Display'
 $fontColorMain      = $swatchNeutralDark
 
 // reset
@@ -16,6 +23,8 @@ input, button, textarea
 
   &:focus
     outline: none
+a, a:hover, a:active, a:focus
+  text-decoration : none
 body
   font-family: $fontMain
 ::-webkit-input-placeholder
@@ -30,7 +39,7 @@ body
 .main-header
   width            : 172px
   height           : 172px
-  font-family      : "BrandonGrotesque-Medium"
+  font-family      : $fontMain
   font-size        : 120px
   color            : white
   background-color : $swatchMain
@@ -39,131 +48,14 @@ body
     padding : 10px
     margin  : 0 auto
 
-.home-content
-  width    : 100%
-  height   : 100%
-  .sidebar
-    width  : 20%
-    height :100%
-    float  : left
-    border-right : 2px dotted $swatchNeutralDark
-  .main-view
-    width  : 79%
-    height :100%
-    float  : right
+.delete-btn
+  cursor     : pointer
+  width      : 20px
+  height     : 20px
+  position   : relative
+  background : url("/assets/delete-02.svg") no-repeat
 
-// NEWQUOTE
-.new-quote
-  width   : 94.2%
-  padding : 10px 20px
-  border  : 2px solid $swatchNeutralLight
-  .header
-    color : $swatchNeutralLight
-    font-family : "BrandonText-MediumItalic"
-    font-size : 12px
-  .field
-    padding-left: 10px
-    font-size        : 35px
-    color : $swatchNeutralDark
-    width: 100%
-    background-color : $swatchNeutralLight
-    margin-bottom: 10px
-  .field-small
-    height: 50px
-  .field-big
-    height 150px
-  .submit
-    width : 100%
-    height : 50px
-// NAVBAR
-.navbar
-  width  : 100%
-  height : 60px
-  background-color : $swatchMain
-  input.searchbar
-    width            : 80%
-    height           : 100%
-    font-size        : 35px
-    font-family      : "BrandonText-Medium"
-    background-color : $swatchMain
-    color            : #fff
-    padding-left     : 10px
-    border-right : 2px dotted white
-
-  .add-quote-btn
-    float              : right
-    background         : url("/assets/plus.png") no-repeat
-    width              : 40px
-    height             : 40px
-    margin-top         : 8px
-    margin-right       : 10px
-    -webkit-transition : -webkit-transform .8s ease-in-out
-    -ms-transition     : -ms-transform .8s ease-in-out
-    transition         : transform .8s ease-in-out
-    &:hover
-      transform         :rotate(360deg)
-      -ms-transform     :rotate(360deg)
-      -webkit-transform :rotate(360deg)
-    &.clicked
-      transform         :rotate(-405deg)
-      -ms-transform     :rotate(-405deg)
-      -webkit-transform :rotate(-405deg)
-
-  .clear-btn
-    float      : right
-    background : url("/assets/delete-icon.png") no-repeat
-    width      : 40px
-    height     : 40px
-
-
-
-// QUOTES
-.quote-list-container
-  display         : flex
-  flex-direction  : row
-  flex-wrap       : wrap
-  width           : 100%
-  justify-content : flex-end
-  .single-quote
-    -webkit-flex     : 1
-    min-width        : 128px
-    height           : 212px
-    margin           : 5px
-    background-color : $swatchMain
-    font-family      : $fontMain
-    color            : $fontColorMain
-    font-size        : 14px
-    padding : 13px
-    .content
-      overflow : hidden
-      height   : 100%
-      width    : 100%
-    .tags
-      width : 100%
-    .tag
-      padding          : 5px
-      background-color : #ededed
-      color            : gray
-      margin-right     : 3px
-
-
-// TAGS
-.tags-list-container
-  width       : 100px
-  font-family : "BrandonText-Medium"
-  font-size   : 12px
-  color       : $fontColorMain
-  .tags-header
-    font-family: "BrandonText-Bold"
-  .tag
-    padding: 5px
-    cursor : pointer
-    background-color: #ededed
-    a:hover
-      color: blue
-    &.selected
-      background-color: blue
-
-
-
+@import 'quote-list'
+@import 'navbar'
+@import 'sidebar'
 @import 'login'

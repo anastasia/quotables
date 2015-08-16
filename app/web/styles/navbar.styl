@@ -1,0 +1,59 @@
+// NAVBAR
+@import 'nib'
+
+.navbar
+  width  : 100%
+  height : 60px
+
+  .selected-tag
+    font-size      : 35px
+    font-family    : $fontSerif
+    text-transform : uppercase
+    border         : 1px solid black
+    padding  : 5px
+  input.searchbar
+    width            : 80%
+    height           : 100%
+    font-size        : 35px
+    font-family      : $fontMain
+    background-color : $swatchMain
+    color            : #fff
+    padding-left     : 10px
+
+  .nav-btn
+    float              : right
+    width              : 44px
+    height             : 44px
+    border  : 1px solid black
+    background-color : white
+    padding: 9px
+    .plus-icon
+      background         : url("/assets/add-icon.svg") no-repeat
+      width : 22px
+      height : 22px
+      -webkit-transition : -webkit-transform 2s ease-in-out
+      -ms-transition     : -ms-transform 2s ease-in-out
+      transition         : transform 2s ease-in-out
+
+    &:hover .plus-icon
+      transform         :rotate(360deg)
+      -ms-transform     :rotate(360deg)
+      -webkit-transform :rotate(360deg)
+    &.clicked .plus-icon
+      transform         :rotate(-405deg)
+      -ms-transform     :rotate(-405deg)
+      -webkit-transform :rotate(-405deg)
+
+  .nav-btn
+    &:hover
+      background-color: $swatchYellow
+    .lookup-icon
+      background : url("/assets/lookup.svg") no-repeat
+      width : 22px
+      height : 22px
+
+  .clear-btn
+    float      : right
+    background : url("/assets/delete-icon.png") no-repeat
+    width      : 40px
+    height     : 40px

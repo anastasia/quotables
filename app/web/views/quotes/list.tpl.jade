@@ -1,8 +1,15 @@
 .quote-list-container(ng-controller="QuotesCtrl as qc")
   
   .single-quote(
-    ng-click="qc.viewQuote(quote)"
-    ng-repeat="quote in qc.quotes | filter: qc.filterText"
-    ng-class="{'in-focus':qc.quoteViewed == quote._id}")
-    .content {{ quote.body }}
+    ng-repeat="quote in qc.quotes | filter: qc.filterText track by $index"
+    ng-class="qc.getClass(quote)")
+    .delete-btn(ng-click="qc.openDeleteModal(quote)")
+    .overlay-div
+    .content-container(
+      ng-click="qc.viewQuote(quote)"
+      class="{{$index}}")
+      .content {{ quote.body }}
     
+    .tags-container(ng-if="quote.tagsArray.length > 0 && quote.tagsArray[0].length > 0")
+      span.tag-small(
+        ng-repeat="tag in quote.tagsArray") {{tag}}

@@ -4,7 +4,9 @@ angular.module("app")
   controllerAs: 'nav'
   controller: ($scope, QuoteService, $stateParams, TagService) ->
     @searchval   = ''
+    @selectedTags = []
     @searchPlaceholder = "SEARCH"
+
     @clearSearch = ->
       @searchval = ''
       TagService.selectedTags = []
@@ -18,7 +20,12 @@ angular.module("app")
     $scope.$watch ->
       return TagService.selectedTags
     , =>
+      @selectedTags = TagService.selectedTags
       @searchval = @searchval + TagService.selectedTags.join(' ')
+
+    @removeTag = (index) ->
+      TagService.selectedTags.splice(index, 1)
+      @searchval = TagService.selectedTags.join(' ')
 
     @filterByText   = ->
       QuoteService.filterText = @searchval
@@ -27,5 +34,9 @@ angular.module("app")
       @addingQuote             = !@addingQuote
       @searchPlaceholder       = if @addingQuote then "ADD A QUOTE" else "SEARCH"
       QuoteService.addingQuote = @addingQuote
+
+
+    @updateWithTag = (tag) -> TagService.updateWithTag(tag)
+
 
     return

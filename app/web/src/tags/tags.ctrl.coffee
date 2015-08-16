@@ -10,20 +10,14 @@ angular.module('app')
   , =>
     @searchTags = TagService.selectedTags
 
-
   @clearTags = ->
     TagService.selectedTags = []
     $stateParams.tags = null
 
   @updateWithTag = (tag) ->
-    selected = @tagSelected(tag)
+    TagService.updateWithTag(tag)
 
-    if selected then TagService.selectedTags.splice(tagIndex,1) else TagService.selectedTags.push tag
-    $state.current.reloadOnSearch = false
-    $state.transitionTo "home", { notify: false, location: "replace", reload:false, inherit:false, 'tags': TagService.selectedTags.join(',') }
-    $state.current.reloadOnSearch = undefined
-
-    QuoteService.filterText =  TagService.selectedTags.join(' ')
+    QuoteService.filterText = TagService.selectedTags.join(' ')
 
   @tagSelected = (tag) ->
     tagIndex = _.indexOf(@searchTags, tag)

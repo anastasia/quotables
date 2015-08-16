@@ -1,0 +1,74 @@
+
+// QUOTES
+.quote-list-container
+  width           : 100%
+  .single-quote.one
+    background-color : $swatchGreen
+  .single-quote.two
+    background-color : $swatchYellow
+  .single-quote.three
+    background-color : $swatchRed
+  .single-quote.four
+    background-color : $swatchGray
+  .single-quote.five
+    background-color : $swatchGreenLight
+
+  .single-quote
+    cursor      : pointer
+    width       : 164px
+    height      : 212px
+    margin      : 7px
+    font-family : $fontMain
+    color       : #000000
+    font-size   : 14px
+    line-height : 20px
+    padding     : 13px
+    float       : left
+    position    : relative
+    .overlay-div
+      display  : none
+      position : absolute
+      width    : 164px
+      height   : 212px
+      opacity  : 0.4
+      left     : 0px
+      top      : 0px
+    &:hover .overlay-div
+      display          : inline-block
+      background-color : #18435f
+
+    .content-container
+      position : absolute
+      width    : 100%
+      height   : 100%
+      top      : 0px
+      left     : 0px
+      padding  : 10px
+    .delete-btn
+      display  : none
+      left     : 141px
+      top      : -19px
+
+    &:hover .delete-btn
+      display: inline-block
+
+    &:hover .tags-container
+      display : inline-block
+    .content
+      overflow : hidden
+      height   : 100%
+      width    : 100%
+    .tags
+      width : 100%
+    .tags-container
+      display : none
+      background-color : #000000
+      height           : 20px
+      width            : 164px
+      position         : absolute
+      left             : 0px
+      bottom : 0px
+    .tag-small
+      color : #ffffff
+      font-size : 8px
+      margin : 0 6px

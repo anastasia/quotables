@@ -25,7 +25,6 @@ angular.module("app")
       quoteApi
         .getList()
         .then (quotes) =>
-
           for quote in quotes
             quote.tagsArray = _.pluck(quote.tags, "value")
             @quotes.push quote
@@ -40,8 +39,9 @@ angular.module("app")
       return
 
     filterByTags: (tags) ->
-      return @quotes if !tags
-      @filterText    = tags.join(', ')
+      if !tags
+        @filterText = ""
+        return @quotes
       filteredQuotes = []
       for quote in @quotes
         quotePushed = false

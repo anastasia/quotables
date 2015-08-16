@@ -4,6 +4,8 @@ Schema   = mongoose.Schema
 ignoreEmpty = (val) -> if val == "" then return undefined else return val
 
 Quote = new Schema({
+  created_at:
+    type: Date
   user_id:
     type: Schema.Types.ObjectId
     ref: 'User'
