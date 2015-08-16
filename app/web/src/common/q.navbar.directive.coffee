@@ -21,11 +21,11 @@ angular.module("app")
       return TagService.selectedTags
     , =>
       @selectedTags = TagService.selectedTags
-      @searchval = @searchval + TagService.selectedTags.join(' ')
+      # @searchval = @searchval + TagService.selectedTags.join(' ')
 
     @removeTag = (index) ->
       TagService.selectedTags.splice(index, 1)
-      @searchval = TagService.selectedTags.join(' ')
+      # @searchval = TagService.selectedTags.join(' ')
 
     @filterByText   = ->
       QuoteService.filterText = @searchval
@@ -35,8 +35,10 @@ angular.module("app")
       @searchPlaceholder       = if @addingQuote then "ADD A QUOTE" else "SEARCH"
       QuoteService.addingQuote = @addingQuote
 
+    @updateWithTag = (tag) ->
+      TagService.updateWithTag(tag)
 
-    @updateWithTag = (tag) -> TagService.updateWithTag(tag)
-
+    @getClass = (tag) ->
+      TagService.getClass(tag)
 
     return

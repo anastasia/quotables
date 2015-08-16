@@ -6,11 +6,36 @@
   height : 60px
 
   .selected-tag
+    display        : inline-block
     font-size      : 35px
     font-family    : $fontSerif
     text-transform : uppercase
     border         : 1px solid black
-    padding  : 5px
+    padding        : 5px
+    height : 44px
+    margin-right : 5px
+
+
+    &.one
+      background-color : $swatchGreen
+    &.two
+      background-color : $swatchYellow
+    &.three
+      background-color : $swatchRed
+    &.four
+      background-color : $swatchGray
+    &.five
+      background-color : $swatchGreenLight
+
+    .delete-btn
+      display: none
+      position : absolute
+      top : -2px
+    &:hover .delete-btn
+      display : inline-block
+    span.content
+      top     : -10px
+      position: relative
   input.searchbar
     width            : 80%
     height           : 100%

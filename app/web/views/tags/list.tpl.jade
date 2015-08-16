@@ -2,5 +2,6 @@
   .tag(
     ng-repeat="tag in tagsctrl.allTags track by $index"
     ng-click="tagsctrl.updateWithTag(tag)"
+    ng-if="tag.length > 0 && tag"
     ng-class="{'selected':tagsctrl.tagSelected(tag)}") 
-    a {{ tag }}
+    a.tag-name {{ tag }}

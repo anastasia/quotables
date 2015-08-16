@@ -41,10 +41,16 @@
   font-family : $fontMain
   font-size   : 12px
   line-height : 25px
+  margin-left: 20px
+  a, a:hover, a:focus, a:active
+    text-decoration : none
   .tag
+    width: 100%
+  a.tag-name
     color  : #000000
     padding: 5px
     cursor : pointer
+    display : inline-block
 
-    &:hover, &.selected
-      background-color : $swatchYellow
+  .tag:hover, .tag.selected
+    background-color : $swatchYellow

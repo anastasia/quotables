@@ -12,4 +12,5 @@
     
     .tags-container(ng-if="quote.tagsArray.length > 0 && quote.tagsArray[0].length > 0")
       span.tag-small(
-        ng-repeat="tag in quote.tagsArray") {{tag}}
+        ng-repeat="tag in quote.tagsArray"
+        ) {{tag}}

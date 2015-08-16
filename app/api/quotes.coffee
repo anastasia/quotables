@@ -12,11 +12,11 @@ exports.list = (req, res) ->
 exports.create = (req, res) ->
   try
     quote = new Quote({
-      author  : req.body.author
-      body    : req.body.body
-      title   : req.body.title
-      user_id : req.user._id
-      origin  : req.body.url
+      author     : req.body.author
+      body       : req.body.body
+      title      : req.body.title
+      user_id    : req.user._id
+      origin     : req.body.url
       created_at : new Date()
     })
 
@@ -25,7 +25,7 @@ exports.create = (req, res) ->
 
     for tagVal in tagsArray
       tag = Tag.sync.findOne { value : tagVal }
-      tag = new Tag { value : tagVal } if !tag
+      tag = new Tag { value : tagVal, created_at : new Date() } if !tag
 
       tag.sync.save()
       quote.tags.push tag._id

@@ -42,7 +42,6 @@ angular.module("app")
       size: 10,
 
     modalInstance.result.then (selectedItem) ->
-      console.log "selectedItem?", selectedItem
       $scope.selected = selectedItem
     , ->
       console.log 'Modal dismissed at: ' + new Date()

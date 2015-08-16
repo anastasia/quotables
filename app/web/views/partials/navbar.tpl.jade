@@ -15,6 +15,9 @@ div.navbar
     ng-if="nav.searchval.length > 0")
     .lookup-icon
       
+      
   div.selected-tags
-    .selected-tag(ng-repeat="tag in nav.selectedTags track by $index") {{tag}}
+    .selected-tag(ng-repeat="tag in nav.selectedTags track by $index"
+      ng-class="nav.getClass(tag)") 
+      span.content {{tag}}
       .delete-btn(ng-click="nav.updateWithTag(tag)")
