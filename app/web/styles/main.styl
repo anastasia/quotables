@@ -28,13 +28,51 @@ a, a:hover, a:active, a:focus
 body
   font-family: $fontMain
 ::-webkit-input-placeholder
-  color: #fff
+  color: #000
 :-moz-placeholder
-  color: #fff
+  color: #000
 ::-moz-placeholder
-  color: #fff
+  color: #000
 :-ms-input-placeholder
-  color: #fff
+  color: #000
+
+.modal-content
+  padding      : 10px
+  width        : 400px
+  border-radius: 0px
+  margin       :0 auto
+  h5
+    font-family : $fontSerif
+  .editable-wrap,
+  .editable-text,
+  .editable-wrap .editable-controls > input,
+  .editable-wrap .editable-controls>select,
+  .editable-wrap .editable-controls>textarea
+    width : 100%
+
+  .editable-click,
+  a.editable-click
+    border-bottom : 0px
+
+.home-content
+  width    : 100%
+  height   : 100%
+  margin : 30px
+  .sidebar
+    width  : 15%
+    height :100%
+    float  : left
+
+  .main-view
+    width  : 75%
+    height :100%
+    float  : right
+
+
+.logo
+  margin-bottom : 10px
+  height        : 103px
+  background    : url("/assets/Q.svg") no-repeat
 
 .main-header
   width            : 172px

@@ -1,19 +1,22 @@
 .modal-container(ng-controller="SingleQuoteCtrl as ctrl")
+  h5 content
   div(
-    editable-text="ctrl.quote.body"
+    editable-textarea="ctrl.quote.body"
     buttons="no"
     blur="submit"
     onbeforesave="ctrl.updateQuote('body', $data)"
-    ) {{ctrl.quote.body}}
+    ) {{ ctrl.quote.body || 'body' }}
+  h5 author
   div(
     editable-text="ctrl.quote.author"
     buttons="no"
     blur="submit"
     onbeforesave="ctrl.updateQuote('author', $data)"
-    ) {{ctrl.quote.author}}
+    ) {{ ctrl.quote.author }}
+  h5 url
   div(
     editable-text="ctrl.quote.origin"
     buttons="no"
     blur="submit"
     onbeforesave="ctrl.updateQuote('origin', $data)"
-    ) {{ctrl.quote.origin}}
+    ) {{ ctrl.quote.origin }}

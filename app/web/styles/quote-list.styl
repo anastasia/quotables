@@ -18,7 +18,7 @@
     cursor      : pointer
     width       : 164px
     height      : 212px
-    margin      : 7px
+    margin      : 0px 12px 12px 0px
     font-family : $fontMain
     color       : #000000
     font-size   : 14px
@@ -45,20 +45,25 @@
       top      : 0px
       left     : 0px
       padding  : 10px
+    .content
+      height       : 100%
+      width        : 100%
+      text-overflow: ellipsis
+      overflow     : hidden
+      word-wrap    : break-word
+
+
     .delete-btn
       display  : none
       left     : 141px
       top      : -19px
+      z-index  : 2
 
     &:hover .delete-btn
       display: inline-block
 
     &:hover .tags-container
       display : inline-block
-    .content
-      overflow : hidden
-      height   : 100%
-      width    : 100%
     .tags
       width : 100%
     .tags-container

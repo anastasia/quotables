@@ -1,19 +1,19 @@
 div.navbar
-  //- input.searchbar(
-  //-   type="text"
-  //-   ng-change="nav.filterByText()"
-  //-   ng-model="nav.searchval"
-  //-   ng-disabled="nav.addingQuote"
-  //-   placeholder="{{nav.searchPlaceholder}}")
-  //- 
-  button.nav-btn(
-    ng-class="{clicked:nav.addingQuote == true}"
-    ng-click="nav.toggleNewQuote()")
-    .plus-icon
-  button.nav-btn(
-    ng-click="nav.clearSearch()"
-    ng-if="nav.searchval.length > 0")
-    .lookup-icon
+  div.searchbar-container
+    input.searchbar(
+      type="text"
+      ng-change="nav.filterByText()"
+      ng-model="nav.searchval"
+      ng-disabled="nav.addingQuote"
+      placeholder="{{nav.searchPlaceholder}}")
+  div.btn-container
+    button.nav-btn(
+      ng-click="nav.clearSearch()")
+      .lookup-icon
+    button.nav-btn(
+      ng-class="{clicked:nav.addingQuote == true}"
+      ng-click="nav.toggleNewQuote()")
+      .plus-icon
       
       
   div.selected-tags

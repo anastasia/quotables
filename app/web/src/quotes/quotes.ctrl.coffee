@@ -1,5 +1,5 @@
 angular.module("app")
-.controller "QuotesCtrl", ($scope, $stateParams, QuoteService, $modal, TagService) ->
+.controller "QuotesCtrl", ($scope, $stateParams, $window, QuoteService, $modal, TagService, $http) ->
   getQuotes = =>
     tags    = $stateParams.tags?.split(',')
     @quotes = QuoteService.filterByTags(tags)
@@ -16,7 +16,7 @@ angular.module("app")
     QuoteService.selectedQuote = quote
 
     modalInstance = $modal.open
-      animation: true
+      animation: false
       templateUrl: 'quotes/view.quote.tpl.jade'
       controller: 'SingleQuoteCtrl'
       size: 10,
@@ -46,9 +46,15 @@ angular.module("app")
     , ->
       console.log 'Modal dismissed at: ' + new Date()
 
-  $scope.deleteQuote = (quote) ->
-    console.log "getting delete quote?", quote
-
+  @deleteQuote = (quote) ->
+    remove = confirm "Delete?"
+    if remove
+      $http
+        .post("/quotes/#{quote._id}")
+        .then ->
+          $window.location.reload()
+    else
+      return
 
   @getClass = (quote) ->
     date = new Date quote.created_at

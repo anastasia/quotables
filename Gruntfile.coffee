@@ -4,7 +4,7 @@ watch_this = [
   './app/web/**/*.coffee',
   './app/server/**/*.coffee',
   './app/web/**/*.jade',
-  './app/web/styles/**/*.styl'
+  './app/web/styles/**.styl'
 
 ]
 
@@ -54,7 +54,9 @@ module.exports = (grunt) ->
       compile:
         options:
           compress: true
-        files: './app/web/styles.css':'./app/web/styles/*.styl'
+        files: './app/web/styles.css':[
+          'bower_components/angular-xeditable/dist/css/xeditable.css',
+          './app/web/styles/*.styl']
   })
 
   grunt.loadNpmTasks('grunt-contrib-concat')

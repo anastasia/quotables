@@ -42,5 +42,9 @@ exports.update = (req, res) ->
   res.status(200).send({status:"success!"})
 
 exports.delete = (req, res) ->
-
+  try
+    Quote.sync.findOneAndRemove { _id : req.params.id }
+    res.status(200).send({status:"success!"})
+  catch e
+    res.status(500).send({error: e})
 exports.view   = (req, res) ->
