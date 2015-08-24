@@ -36,7 +36,7 @@
       url: '/signup',
       templateUrl: 'signup.tpl.jade'
     });
-  }).run(function($rootScope, GuardService) {
+  }).run(function($rootScope, GuardService, editableOptions) {
     return $rootScope.$on('$stateChangeStart', GuardService.stateChange);
   }).service('GuardService', function($state, AuthService) {
     var guards;
@@ -120,6 +120,7 @@
       controllerAs: 'nav',
       controller: function($scope, QuoteService, $stateParams, TagService) {
         this.searchval = '';
+        this.selectedTags = [];
         this.searchPlaceholder = "SEARCH";
         this.clearSearch = function() {
           this.searchval = '';
@@ -137,9 +138,12 @@
           return TagService.selectedTags;
         }, (function(_this) {
           return function() {
-            return _this.searchval = _this.searchval + TagService.selectedTags.join(' ');
+            return _this.selectedTags = TagService.selectedTags;
           };
         })(this));
+        this.removeTag = function(index) {
+          return TagService.selectedTags.splice(index, 1);
+        };
         this.filterByText = function() {
           return QuoteService.filterText = this.searchval;
         };
@@ -147,6 +151,12 @@
           this.addingQuote = !this.addingQuote;
           this.searchPlaceholder = this.addingQuote ? "ADD A QUOTE" : "SEARCH";
           return QuoteService.addingQuote = this.addingQuote;
+        };
+        this.updateWithTag = function(tag) {
+          return TagService.updateWithTag(tag);
+        };
+        this.getClass = function(tag) {
+          return TagService.getClass(tag);
         };
       }
     };
@@ -241,9 +251,9 @@
       filterByTags: function(tags) {
         var filteredQuotes, i, j, len, len1, quote, quotePushed, ref, tag;
         if (!tags) {
+          this.filterText = "";
           return this.quotes;
         }
-        this.filterText = tags.join(', ');
         filteredQuotes = [];
         ref = this.quotes;
         for (i = 0, len = ref.length; i < len; i++) {
@@ -269,10 +279,49 @@
 }).call(this);
 
 (function() {
-  angular.module("app").service("TagService", function() {
+  angular.module("app").service("TagService", function($state) {
     var obj;
     obj = {
-      slectedTags: []
+      selectedTags: [],
+      updateWithTag: function(tag) {
+        var selected, tagIndex;
+        tagIndex = _.indexOf(this.selectedTags, tag);
+        selected = tagIndex > -1;
+        if (selected) {
+          this.selectedTags.splice(tagIndex, 1);
+        } else {
+          this.selectedTags.push(tag);
+        }
+        $state.current.reloadOnSearch = false;
+        $state.transitionTo("home", {
+          notify: false,
+          location: "replace",
+          reload: false,
+          inherit: false,
+          'tags': this.selectedTags.join(',')
+        });
+        return $state.current.reloadOnSearch = void 0;
+      },
+      getClass: function(tag) {
+        var num;
+        num = tag.length;
+        if (num % 6 === 0) {
+          return "five";
+        }
+        if (num % 7 === 0) {
+          return "one";
+        }
+        if (num % 3 === 0) {
+          return "three";
+        }
+        if (num % 5 === 0) {
+          return "four";
+        }
+        if (num % 2 === 0) {
+          return "two";
+        }
+        return "five";
+      }
     };
     return obj;
   });
@@ -308,7 +357,7 @@
 }).call(this);
 
 (function() {
-  angular.module("app").controller("QuotesCtrl", function($scope, $stateParams, QuoteService, $modal) {
+  angular.module("app").controller("QuotesCtrl", function($scope, $stateParams, $window, QuoteService, $modal, TagService, $http) {
     var getQuotes;
     getQuotes = (function(_this) {
       return function() {
@@ -332,7 +381,7 @@
       var modalInstance;
       QuoteService.selectedQuote = quote;
       modalInstance = $modal.open({
-        animation: true,
+        animation: false,
         templateUrl: 'quotes/view.quote.tpl.jade',
         controller: 'SingleQuoteCtrl',
         size: 10
@@ -342,6 +391,51 @@
       }, function() {
         return console.log('Modal dismissed at: ' + new Date());
       });
+    };
+    this.openDeleteModal = function(quote) {
+      var modalInstance;
+      modalInstance = $modal.open({
+        animation: false,
+        template: "<div>DELETE</div>\n<div>\n  <button class=\"btn btn-primary\" ng-click=\"$scope.deleteQuote(quote)\">\n   YES\n  </button>\n  <button class=\"btn btn-default\">\n   NO\n  </button>",
+        size: 10
+      });
+      return modalInstance.result.then(function(selectedItem) {
+        return $scope.selected = selectedItem;
+      }, function() {
+        return console.log('Modal dismissed at: ' + new Date());
+      });
+    };
+    this.deleteQuote = function(quote) {
+      var remove;
+      remove = confirm("Delete?");
+      if (remove) {
+        return $http.post("/quotes/" + quote._id).then(function() {
+          return $window.location.reload();
+        });
+      } else {
+
+      }
+    };
+    this.getClass = function(quote) {
+      var date, s;
+      date = new Date(quote.created_at);
+      s = date.getTime();
+      if (s % 6 === 0) {
+        return "five";
+      }
+      if (s % 7 === 0) {
+        return "one";
+      }
+      if (s % 3 === 0) {
+        return "three";
+      }
+      if (s % 5 === 0) {
+        return "four";
+      }
+      if (s % 2 === 0) {
+        return "two";
+      }
+      return "five";
     };
   }).controller('SingleQuoteCtrl', function($scope, QuoteService) {
     this.quote = QuoteService.selectedQuote;
@@ -430,22 +524,7 @@
       return $stateParams.tags = null;
     };
     this.updateWithTag = function(tag) {
-      var selected;
-      selected = this.tagSelected(tag);
-      if (selected) {
-        TagService.selectedTags.splice(tagIndex, 1);
-      } else {
-        TagService.selectedTags.push(tag);
-      }
-      $state.current.reloadOnSearch = false;
-      $state.transitionTo("home", {
-        notify: false,
-        location: "replace",
-        reload: false,
-        inherit: false,
-        'tags': TagService.selectedTags.join(',')
-      });
-      $state.current.reloadOnSearch = void 0;
+      TagService.updateWithTag(tag);
       return QuoteService.filterText = TagService.selectedTags.join(' ');
     };
     this.tagSelected = function(tag) {
