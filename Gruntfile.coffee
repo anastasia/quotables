@@ -44,6 +44,7 @@ module.exports = (grunt) ->
           'bower_components/restangular/src/restangular.js'
           'bower_components/lodash/lodash.min.js'
           'bower_components/angular-xeditable/dist/js/xeditable.min.js'
+          'bower_components/angular-ellipsis/src/angular-ellipsis.min.js'
         ]
         dest: "./app/web/dist/built.js"
       app:
