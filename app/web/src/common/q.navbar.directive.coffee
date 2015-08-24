@@ -21,11 +21,9 @@ angular.module("app")
       return TagService.selectedTags
     , =>
       @selectedTags = TagService.selectedTags
-      # @searchval = @searchval + TagService.selectedTags.join(' ')
 
     @removeTag = (index) ->
       TagService.selectedTags.splice(index, 1)
-      # @searchval = TagService.selectedTags.join(' ')
 
     @filterByText   = ->
       QuoteService.filterText = @searchval
