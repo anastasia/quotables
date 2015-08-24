@@ -6,8 +6,7 @@
     .delete-btn(ng-click="qc.deleteQuote(quote)")
     .overlay-div
     .content-container(
-      ng-click="qc.viewQuote(quote)"
-      class="{{$index}}")
+      ng-click="qc.viewQuote(quote)")
       .content {{ quote.body }}
     
     .tags-container(ng-if="quote.tagsArray.length > 0 && quote.tagsArray[0].length > 0")

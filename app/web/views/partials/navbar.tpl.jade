@@ -5,6 +5,7 @@ div.navbar
       ng-change="nav.filterByText()"
       ng-model="nav.searchval"
       ng-disabled="nav.addingQuote"
+      ng-if="nav.selectedTags.length < 1"
       placeholder="{{nav.searchPlaceholder}}")
   div.btn-container
     button.nav-btn(
