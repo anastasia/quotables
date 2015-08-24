@@ -70,6 +70,7 @@ app.get  '/logout', routes.logout
 app.get  '/quotes/new',  auth.ensureAuth, quotes.new
 app.patch '/quotes/:id', auth.ensureAuth, quotes.update
 app.post '/quotes/new',  auth.ensureAuth, quotes.create
+app.post '/quotes/:id',  auth.ensureAuth, quotes.delete
 app.get  '/quotes',      auth.ensureAuth, quotes.list
 
 
