@@ -1,4 +1,4 @@
-keys           = require '../../keys'
+keys           = require '../config'
 fibrous        = require 'fibrous'
 nodemailer     = require 'nodemailer'
 uuid           = require 'node-uuid'
