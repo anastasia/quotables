@@ -16,6 +16,7 @@
     "coffee-script": "^1.9.1",
     "connect-mongo": "^0.7.0",
     "error-handler": "^1.0.0",
+    "errorhandler": "^1.4.2",
     "express": "^4.11.2",
     "express-session": "^1.10.3",
     "fibrous": "^0.3.3",
