@@ -5,4 +5,4 @@ npm-debug.log
 bower_components
 design
 old-quotables
-keys
+keys.coffee
