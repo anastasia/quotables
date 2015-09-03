@@ -4,7 +4,7 @@ if process.env.NODE_ENV == 'production'
   config.YAHOO_ACCOUNT  = process.env.YAHOO_ACCOUNT
   config.YAHOO_PASSWORD = process.env.YAHOO_PASSWORD
 else
-  keys = require '../keys'
+  keys = require '../keys' || {}
   config.MONGO_URL      = keys.MONGO_URL
   config.YAHOO_ACCOUNT  = keys.YAHOO_ACCOUNT
   config.YAHOO_PASSWORD = keys.YAHOO_PASSWORD
