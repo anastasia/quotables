@@ -1,6 +1,5 @@
 express        = require 'express'
 path           = require 'path'
-keys           = require './keys'
 logger         = require 'morgan'
 methodOverride = require 'method-override'
 session        = require 'express-session'
