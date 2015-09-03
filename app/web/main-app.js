@@ -36,7 +36,7 @@
       url: '/signup',
       templateUrl: 'signup.tpl.jade'
     });
-  }).run(function($rootScope, GuardService, editableOptions) {
+  }).run(function($rootScope, GuardService) {
     return $rootScope.$on('$stateChangeStart', GuardService.stateChange);
   }).service('GuardService', function($state, AuthService) {
     var guards;

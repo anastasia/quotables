@@ -22,7 +22,7 @@ angular.module("partials/new.quote.tpl.jade", []).run(["$templateCache", functio
 
 angular.module("quotes/list.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("quotes/list.tpl.jade",
-    "<div ng-controller=\"QuotesCtrl as qc\" class=\"quote-list-container\"><div data-ellipsis ng-repeat=\"quote in qc.quotes | filter: qc.filterText track by $index\" ng-class=\"qc.getClass(quote)\" class=\"single-quote\"><div ng-click=\"qc.deleteQuote(quote)\" class=\"delete-btn\"></div><div class=\"overlay-div\"></div><div ng-click=\"qc.viewQuote(quote)\" class=\"content-container\"><div class=\"content\">{{ quote.body }}</div></div><div ng-if=\"quote.tagsArray.length &gt; 0 &amp;&amp; quote.tagsArray[0].length &gt; 0\" class=\"tags-container\"><span ng-repeat=\"tag in quote.tagsArray\" class=\"tag-small\">{{tag}}</span></div></div></div>");
+    "<div ng-controller=\"QuotesCtrl as qc\" class=\"quote-list-container\"><div ng-repeat=\"quote in qc.quotes | filter: qc.filterText track by $index\" ng-class=\"qc.getClass(quote)\" class=\"single-quote\"><div ng-click=\"qc.deleteQuote(quote)\" class=\"delete-btn\"></div><div class=\"overlay-div\"></div><div ng-click=\"qc.viewQuote(quote)\" class=\"content-container\"><div class=\"content\">{{ quote.body }}</div></div><div ng-if=\"quote.tagsArray.length &gt; 0 &amp;&amp; quote.tagsArray[0].length &gt; 0\" class=\"tags-container\"><span ng-repeat=\"tag in quote.tagsArray\" class=\"tag-small\">{{tag}}</span></div></div></div>");
 }]);
 
 angular.module("quotes/view.quote.tpl.jade", []).run(["$templateCache", function($templateCache) {
