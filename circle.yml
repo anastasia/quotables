@@ -1,0 +1,9 @@
+machine:
+  post:
+    - npm install -g npm@3.3.5
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: quotables
